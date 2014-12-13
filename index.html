@@ -13,8 +13,8 @@
 
     <!-- source-->
     <script src="config.js"></script>
-    <script src="js/bundle-lib.js?v=0.1.4"></script>
-    <script src="js/bundle.js?v=0.1.4"></script>
+    <script src="js/bundle-lib.js?v=0.1.6"></script>
+    <script src="js/bundle.js?v=0.1.6"></script>
 
     <!-- TODO -->
     <!--<script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
@@ -92,7 +92,7 @@
                         <li role="presentation" class="divider"></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
 						<li role="presentation" class="divider"></li>
-						<li class="disabled"><a>Version 0.1.4</a></li>
+						<li class="disabled"><a>Version 0.1.6</a></li>
                     </ul>
                 </li>
             </ul>
@@ -101,6 +101,10 @@
     </nav>
 
     <div class="container-fluid" role="main">
+
+        <div class="alert alert-danger" style="font-size:200%;" ng-if="siteConfig.testEnvironment">
+            This is a test/development system. It may be unstable, and the database will ocassionally be wiped.
+        </div>
 
         <div ng-show="false">This site uses the latest javascript inovations, and is only tested
         under Firefox and Chrome. You should also disable Noscript.</div>
