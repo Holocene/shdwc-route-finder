@@ -1,0 +1,221 @@
+<div ng-show="isFindingPaths">
+    <h3 style="text-align:center; margin:50px">Finding routes...</h3>
+</div>
+
+<div class="panel panel-default" ng-show="!hasFoundPaths && !isFindingPaths">
+    <h3 style="text-align:center; margin:50px">No paths found!</h3>
+</div>
+
+<div class="panel panel-default" ng-show="linksChanged">
+    <h3 style="text-align:center; margin:50px">
+        Wormhole or Bridge data has been modified.
+        <a href="" ng-click="recalculatePaths()">Recalculate paths?</a>
+    </h3>
+</div>
+
+<div ng-repeat="path in foundPaths" class="panel panel-default">
+    <!-- The header entry-->
+    <div class="row">
+        <div class="col-sm-8">
+            <h4 style="margin:10px 10px 10px 10px">
+                <span style="margin-right:10px;"
+                      data-ng-pluralize data-count="path.jumps"
+                      data-when="{'one': '1 Jump', 'other': '{} Jumps'}">
+                </span>
+                <span class="label bg-highsec" ng-if="path.goesHighsec">Highsec</span>
+                <span class="label bg-lowsec" ng-if="path.goesLowsec">Lowsec</span>
+                <span class="label bg-nullsec" ng-if="path.goesNullsec">Nullsec</span>
+                <span class="label bg-wspace" ng-if="path.goesWspace">Wormhole space</span>
+
+                <span class="label label-default" ng-if="path.hasStargates">Stargates</span>
+                <span class="label label-default" ng-if="path.hasTitans">Titans</span>
+                <span class="label label-default" ng-if="path.hasBlackops">Blackops</span>
+                <span class="label label-default" ng-if="path.hasWormholes">Wormholes</span>
+                <span class="label label-danger" ng-if="path.getFatigue(shipClass) > 10">High fatigue</span>
+            </h4>
+        </div>
+        <div class="col-sm-4 row" style="text-align:right">
+            <div style="margin:10px 0 10px 10px;">
+                <span class="h4" ng-show="!path.hasWormholes">Static</span>
+                <a href="" ng-click="toggleShowTimeToExpire()" ng-show="path.hasWormholes"
+                   class="abbr-link"
+                   data-tooltip="{{getPathTimeTooltip(path)}}"
+                   data-tooltip-placement="right">
+                    <span class="h4" ng-show="!showTimeToExpire">{{path.getAgeFuzzy()}}</span>
+                    <span class="h4" ng-show="showTimeToExpire">{{path.getDateExpiresFuzzy()}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding-left:10px;">
+        Jump Fatigue: {{path.getFatiguePretty(shipClass)}} minutes, Travel Time: {{path.getMinutesPretty(shipClass)}} minutes
+    </div>
+
+    <div class="list-group list-group-expands">
+        <a href="" class="list-group-item" ng-repeat-start="partition in path.routePartition"
+           ng-click="toggleExpandPartition(partition)"
+           ng-class="{'list-group-item-highlighted': partition.expanded,
+                      'list-group-item-danger': partition.missingClass}">
+            <div class="">
+                <span ng-if="partition.type === 'stargate'">
+                    <b>Stargate travel</b>: from
+                </span>
+                <span ng-if="partition.type === 'bridge'">
+                    <b>Bridge</b>: Take <b>{{partition.bridger.name}}</b>
+                </span>
+                <span ng-if="partition.subtype === 'k-k wormhole'">
+                    <b>K-K wormhole</b>: from
+                </span>
+                <span ng-if="partition.subtype === 'wormhole chain'">
+                    <b>Wormhole chain</b>: from
+                </span>
+                <span>
+                    <b class="abbr" data-system-details-tooltip="partition.startSystem">
+                        {{partition.startSystem.systemName}}
+                    </b> to
+                    <b class="abbr" data-system-details-tooltip="partition.endSystem">
+                        {{partition.endSystem.systemName}}
+                    </b>
+                </span>
+                <span ng-if="partition.type === 'wormhole' && partition.missingClass"
+                      style="margin-left:10px;"
+                      class="glyphicon glyphicon-warning-sign"></span>
+
+                <span class="pull-right" style="margin-right:10px;"
+                      data-ng-pluralize data-count="partition.jumps"
+                      data-when="{'one': '1 jump', 'other': '{} jumps'}">
+                </span>
+            </div>
+        </a>
+        <div class="list-group-item list-group-item-child list-group-item-highlighted" 
+             ng-show="partition.expanded" ng-repeat-end>
+            <table ng-if="partition.type === 'stargate'" class="table table-tiny">
+                <tr ng-repeat="node in partition.systems">
+                    <td>
+                        <span style="" class="glyphicon glyphicon-stop"
+                              ng-class="{'fg-highsec': node.system.isHighsec(),
+                                         'fg-lowsec': node.system.isLowsec(),
+                                         'fg-nullsec': node.system.isNullsec()}"></span>
+                        <a href="" class="abbr-link"
+                           data-tooltip-placement="right"
+                           data-system-details-tooltip="node.system">
+                            {{node.system.systemName}}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <div ng-if="partition.type === 'bridge'">
+                <b>Distance</b>:{{partition.getDistancePretty()}} ly
+            </div>
+
+            <!--This is cloned from the wormholes list - could do with some refactoring or something-->
+            <table class="table table-tiny" ng-if="partition.type === 'wormhole'">
+                <thead>
+                    <tr>
+                        <th>
+                            Sig ID
+                        </th>
+                        <th>
+                            Near System
+                        </th>
+                        <th>
+                            Far System
+                        </th>
+                        <th>
+                            Class
+                        </th>
+                        <th>
+                            Time found
+                        </th>
+                        <th>
+                            Last Observed
+                        </th>
+                        <th>
+                            Max lifetime
+                        </th>
+                        <th>
+                            <a class="abbr"
+                               data-tooltip="equivilent K-space jumps">
+                                Jumps
+                            </a>
+                        </th>
+                        <th>Note</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="wormhole in partition.wormholeDetails">
+                    <td>
+                        {{wormhole.wormholeId}}
+                    </td>
+                    <td>
+                        <a class="abbr-link" href=""
+                           data-system-details-tooltip="wormhole.nearSystem"
+                           data-tooltip-placement="right">
+                            {{wormhole.nearSystem.systemName}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr-link" href=""
+                           data-system-details-tooltip="wormhole.farSystem"
+                           data-tooltip-placement="right">
+                            {{wormhole.farSystem.systemName}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr" ng-if="wormhole.classTooltip"
+                           data-tooltip="{{wormhole.classTooltip}}"
+                           data-tooltip-placement="right">
+                            {{wormhole.class}}
+                        </a>
+                        <span ng-if="!wormhole.classTooltip">
+                            {{wormhole.class}}
+                        </span>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.dateFound}}">{{wormhole.dateFoundFuzzy}}</a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.wormhole.getLastObservedPretty()}}">
+                        {{wormhole.wormhole.getLastObservedFuzzy()}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.dateExpires}}">{{wormhole.dateExpiresFuzzy}}</a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="no highsec: {{wormhole.equivLowsecJumps}}">
+                            {{wormhole.equivJumps}}
+                        </a>
+                    </td>
+                    <td>
+                        <span ng-if="wormhole.longNote"
+                              class="abbr"
+                              data-tooltip-placement="right"
+                              data-tooltip="{{wormhole.longNote}}">
+                            {{wormhole.note}}
+                        </span>
+                        <span ng-if="!wormhole.longNote">{{wormhole.note}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="wormhole.user"
+                              class="glyphicon glyphicon-info-sign glyphicon-abbr"
+                              data-tooltip="Added by {{wormhole.user}}"
+                              data-tooltip-placement="right"></span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,333 @@
+<div class="panel panel-default" data-modal-element="true" ng-show="show">
+
+    <div class="row">
+        <div class="col-sm-10">
+            <div style="margin-top:15px; margin-left:15px; margin-bottom:15px;">
+                <h3 style="margin:0;">
+                    {{sys.name}}
+                    <a href="" ng-click="togglePinned()"
+                       class="glyphicon glyphicon-pushpin glyphicon-btn"
+                       ng-class="{'glyphicon-btn-unselected': !sys.data.isPinned}"
+                       style="font-size:85%;">
+                    </a>
+                    <a href="" ng-click="toggleStarred()"
+                       class="glyphicon glyphicon-star glyphicon-btn"
+                       ng-class="{'glyphicon-btn-unselected': !sys.data.isStarred}"
+                       style="font-size:85%;">
+                    </a>
+
+                    <small>
+                        {{sys.region}} / {{sys.security}}
+                    </small>
+                    <small style="margin-left:10px;"> 
+                        <a href="{{sys.dotlanLink}}"
+                           title="system info at dotlan">dotlan</a>
+                    </small>
+                </h3>
+
+                <div>
+                    <b>Last scanned: </b>
+                    <a class="abbr" href="" data-tooltip="{{sys.lastScannedPretty}}">
+                        {{sys.lastScannedFuzzy}}
+                    </a>
+                </div>
+                <div>
+                    <b>Last partial scan:</b>
+                    <a class="abbr" href="" data-tooltip="{{sys.lastPartialScanPretty}}">
+                        {{sys.lastPartialScanFuzzy}}
+                    </a>
+                </div>
+                <div ng-if="!sys.isWspace">
+                    <b>Neighbours: </b>
+                    <span ng-repeat="neighborSys in sys.connectedSystems">
+                        <a href="" class="abbr-link" ng-click="go(neighborSys); $event.stopPropagation()"
+                           data-system-details-tooltip="neighborSys">
+                            {{neighborSys.systemName}}
+                        </a>
+                        &nbsp;
+                    </span>
+                </div>
+                <div>
+                    <b class="abbr" href="" data-tooltip="Static distance from {{sys.homeSystem}}">Distance:</b>
+                    <span>
+                        {{sys.distance}} jumps
+                    </span>
+                </div>
+                <br />
+                <div>
+                    <div ng-show="!editingNote">
+                        <div ng-if="sys.note">
+                            <b>Note</b>
+                            <a href="" ng-click="toggleEditNote()">edit</a>
+                        </div>
+                        <div ng-if="!sys.note">
+                            <a href="" ng-click="toggleEditNote()">add note</a>
+                        </div>
+                        <span>{{sys.note}}</span>
+                    </div>
+                    <div ng-show="editingNote">
+                        <form>
+                            <div class="form-group has-feedback">
+                                <label>
+                                    Note
+                                    <a href="" ng-click="toggleEditNote()" style="font-weight:normal">
+                                    cancel</a>
+                                </label>
+                                <textarea class="form-control"
+                                          ng-model="newNote"
+                                          placeholder="Max 280 characters"
+                                          style="resize:vertical;"></textarea>
+                                <span class="help-block" style="text-align:right;"
+                                      ng-class="{'has-success': isSafeNoteLength(),
+                                                 'has-error': !isSafeNoteLength()}">
+                                    <span style="margin-right:10px;">
+                                        <a href="" ng-click="saveNote()"
+                                           ng-show="isSafeNoteLength()">save</a>
+                                    </span>
+                                    <span>{{newNote ? newNote.length : 0}}</span>
+                                    <span class="glyphicon glyphicon-ok"
+                                          ng-show="isSafeNoteLength()"></span>
+                                    <span class="glyphicon glyphicon-remove"
+                                          ng-show="!isSafeNoteLength()"></span>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="btn-group-vertical btn-group-panel-options pull-right">
+                <div class="btn-group" data-dropdown>
+                    <button type="button" class="btn btn-default" data-dropdown-toggle>
+                        Actions
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="" ng-click="markAsScanned()">Mark as scanned</a></li>
+                        <li><a href="" ng-click="toggleEditNote()">Edit system note</a></li>
+                        <li><a href="" ng-click="togglePasteSignatues()">Paste scan results</a></li>
+                    </ul>
+                </div>
+                <div class="btn btn-default"
+                     ng-click="findRouteTo()">
+                    Find route
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>
+        Wormholes
+        <a href="" class="glyphicon glyphicon-plus glyphicon-btn"
+           ng-click="newWormhole();"></a>
+    </h4>
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="">ID</th>
+                <th class="">Destination</th>
+                <th class="">Class</th>
+                <th class="">Time found</th>
+                <th class="">Last Observed</th>
+                <th class="">Max lifetime</th>
+                <th>Length</th>
+                <th>Note</th>
+                <th></th>
+                <th class=""></th>
+            </tr>
+        </thead>
+
+        <tr ng-repeat-start="dtls in wormholes" class="form-inline"
+            ng-if="!dtls.isEditing">
+            <td ng-click="editWormhole(dtls)">
+                {{dtls.id}}
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a href="" class="abbr-link" ng-click="go(dtls.destination); $event.stopPropagation()"
+                   data-tooltip-placement="right"
+                   data-system-details-tooltip="dtls.destination">
+                    {{dtls.destination.systemName}}
+                </a>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a class="abbr" ng-if="dtls.wormholeClass"
+                   data-wormhole-class-details-tooltip="dtls.wormholeClass"
+                   data-tooltip-placement="right">
+                    {{dtls.wormhole.getClassNamePretty()}}
+                </a>
+                <span ng-if="!dtls.wormholeClass">
+                    {{dtls.wormhole.getClassNamePretty()}}
+                </span>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a class="abbr" href="" data-tooltip="{{dtls.wormhole.getDateFoundPretty()}}">
+                    {{dtls.wormhole.getDateFoundFuzzy()}}
+                </a>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a class="abbr" href="" data-tooltip="{{dtls.wormhole.getLastObservedPretty()}}">
+                    {{dtls.wormhole.getLastObservedFuzzy()}}
+                </a>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a class="abbr" href="" data-tooltip="{{dtls.wormhole.getDateExpiresPretty()}}">
+                    {{dtls.wormhole.getDateExpiresFuzzy()}}
+                </a>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <a class="abbr"
+                   data-tooltip="no highsec: {{dtls.equivLowsecJumps}}">
+                    {{dtls.equivJumps}}
+                </a>
+            </td>
+            <td ng-click="editWormhole(dtls)">
+                <span ng-if="dtls.longNote"
+                      class="abbr"
+                      data-tooltip="{{dtls.longNote}}">
+                    {{dtls.note}}
+                </span>
+                <span ng-if="!dtls.longNote">{{dtls.note}}</span>
+            </td>
+
+            <td>
+                <span ng-show="dtls.user"
+                      class="glyphicon glyphicon-info-sign glyphicon-abbr"
+                      data-tooltip="Added by {{dtls.user}}"
+                      data-tooltip-placement="right"></span>
+            </td>
+
+            <td class="td-btn">
+                <div class="btn-group" style="float:right;" data-dropdown>
+                    <button type="button" class="btn btn-default" data-dropdown-toggle>
+                        Actions
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="" ng-click="editWormhole(dtls)">Edit</a></li>
+                        <li><a href="" ng-click="observeWormhole(dtls.wormhole)">Record observation</a></li>
+                        <li class="divider"></li>
+                        <li><a href="" ng-click="deleteWormhole(dtls.wormhole)">Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-if="dtls.isEditing"
+            data-edit-wormhole="dtls.wormhole"
+            data-current-signature="dtls.signature"
+            data-this-system-id="sys.data.id"
+            data-on-close="closeWormhole()">
+        </tr>
+        <tr ng-repeat-end ng-if="showNewWormhole"
+            data-edit-wormhole
+            data-this-system-id="sys.data.id"
+            data-on-close="closeWormhole()"></tr>
+    </table>
+
+
+    <hr />
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>
+                Signatures
+                <a href="" class="glyphicon glyphicon-plus glyphicon-btn"
+                   ng-click="newSig()"></a>
+
+                <small style="margin-left:20px">
+                    <a href="" ng-click="togglePasteSignatues()">
+                        <span ng-show="!pastingScanResults">Paste scan results</span>
+                        <span ng-show="pastingScanResults">Hide</span>   
+                    </a>
+                </small>
+            </h4>
+        </div>
+        <div class="col-sm-6">
+            <form role="form" style="padding-right:15px;"
+                  ng-show="pastingScanResults">
+                <div class="form-group" style="margin-bottom:0;">
+                    <textarea class="form-control" placeholder="Paste scan results and press 'enter'"
+                              ng-model="pastedScanResultData"
+                              rows="1"
+                              data-focus-on-condition="pastingScanResults"
+                              data-trigger-on-enter="pasteScanResults()"></textarea>
+                    <!--focus-on-condition="pastingScanResults"-->
+                </div>
+                <button type="submit" class="pull-right btn btn-default"
+                        ng-click="pasteScanResults()">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="col-sm-2">ID</th>
+                <th class="col-sm-2">Type</th>
+                <th class="col-sm-2">Time found</th>
+                <th class="col-sm-2">Last Scanned</th>
+                <th class="col-sm-2">Note</th>
+                <th class="col-sm-1"></th>
+            </tr>
+        </thead>
+
+        <tr ng-repeat-start="dtls in sigs" class="form-inline"
+            ng-if="!dtls.isEditing">
+            <td ng-click="editSig(dtls)">{{dtls.sig.id}}</td>
+            <td ng-click="editSig(dtls)">{{dtls.sig.type}}</td>
+            <td ng-click="editSig(dtls)">
+                <a class="abbr" href=""
+                   data-tooltip-placement="left"
+                   data-tooltip="{{dtls.sig.getDateFoundPretty()}}">
+                    {{dtls.sig.getDateFoundFuzzy()}}
+                </a>
+            </td>
+            <td ng-click="editSig(dtls)">
+                <a class="abbr" href=""
+                   data-tooltip-placement="left"
+                   data-tooltip="{{dtls.sig.getLastScannedPretty()}}">
+                    {{dtls.sig.getLastScannedFuzzy()}}
+                </a>
+            </td>
+            <td ng-click="editSig(dtls)">
+                <span ng-if="dtls.longNote"
+                      class="abbr"
+                      data-tooltip="{{dtls.longNote}}">
+                    {{dtls.note}}
+                </span>
+                <span ng-if="!dtls.longNote">{{dtls.note}}</span>
+            </td>
+            <td class="td-btn">
+                <div class="btn-group" style="float:right;" data-dropdown>
+                    <button type="button" class="btn btn-default" data-dropdown-toggle>
+                        Actions
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a href="" ng-click="editSig(dtls)">Edit</a></li>
+                        <li><a href="" ng-click="observeSig(dtls.sig)">Record scan</a></li>
+                        <li class="divider"></li>
+                        <li><a href="" ng-click="deleteSig(dtls.sig)">Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat-end ng-if="dtls.isEditing"
+            data-edit-signature="dtls.sig"
+            data-signature-system-id="sys.data.id"
+            data-on-close="closeSig()">
+        </tr>
+        <tr ng-if="showNewSig"
+            data-edit-signature
+            data-signature-system-id="sys.data.id"
+            data-on-close="closeSig()"></tr>
+    </table>
+
+
+</div>

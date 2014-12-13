@@ -1,0 +1,40 @@
+
+
+<div class="panel panel-default">
+
+    <div class="panel-heading" ng-if="!isExisting">
+        Add Bridge
+        <a href="" class="pull-right" ng-click="close()">Close</a>
+    </div>
+    <div class="panel-heading" ng-if="isExisting">
+        Edit Bridge
+        <a href="" class="pull-right" ng-click="close()">Close</a>
+    </div>
+
+    <div class="panel-body">
+        <form role="form">
+            <div class="form-group has-feedback">
+                <label class="control-label">Home system</label>
+                <input class="form-control"
+                       data-system-search="bridge.homeSystemId"
+                       data-system-search-use-id="true"/>
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                      ng-show="bridge.homeSystemId"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <label>Type</label>
+                <select class="form-control" ng-model="bridge.bridgeType"
+                       ng-options="b.key as b.value for b in bridgeTypes">
+                </select>
+            </div>
+            <div class="form-group has-feedback">
+                <label>Name</label>
+                <input class="form-control" ng-model="bridge.name" />
+            </div>
+
+            <button ng-disabled="!canSave()" ng-click="save()" class="btn btn-primary">Save</button>
+            <button ng-show="isExisting" class="btn btn-danger pull-right"
+                    ng-click="delete()">Delete</button>
+        </form>
+    </div>
+</div>

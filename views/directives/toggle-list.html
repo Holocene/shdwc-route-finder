@@ -1,0 +1,38 @@
+
+
+<a href="" 
+   class="list-group-item" 
+   ng-repeat-start="(key,value) in data"
+   ng-click="toggle(key)"
+   ng-class="{'list-group-item-success': getValue(key), 'list-group-item-danger': !getValue(key)}"
+   ng-if="!isNested(key)"
+   >
+    <span>{{getName(key)}}</span>
+    <span class="glyphicon glyphicon-ok pull-right" ng-show="getValue(key)"></span>
+    <span class="glyphicon glyphicon-remove pull-right" ng-show="!getValue(key)"></span>
+</a>
+
+<div class="list-group-item list-group-item-multi-container"
+     ng-if="isNested(key)"
+     ng-repeat-end>
+
+    <a href="" class="list-group-item list-group-item-multi"
+       ng-class="{'list-group-item-success': getValue(key) === 'all',
+                  'list-group-item-warning': getValue(key) === 'some',
+                  'list-group-item-danger':  getValue(key)  === 'none'}"
+       data-toggle-list-popover="value"
+       >
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a href="" class="list-group-item list-group-item-multi fill-table"
+       ng-class="{'list-group-item-success': getValue(key) === 'all',
+                  'list-group-item-warning': getValue(key) === 'some',
+                  'list-group-item-danger':  getValue(key)  === 'none'}"
+       ng-click="toggle(key)">
+        <span>{{getName(key)}}</span>
+        <span ng-show="getValue(key) === 'all'" class="glyphicon glyphicon-ok pull-right"></span>
+        <span ng-show="getValue(key) === 'some'" class="glyphicon glyphicon-unchecked pull-right"></span>
+        <span ng-show="getValue(key) === 'none'" class="glyphicon glyphicon-remove pull-right"></span>
+    </a>
+</div>
+

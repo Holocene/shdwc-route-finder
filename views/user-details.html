@@ -1,0 +1,98 @@
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <img class="pull-left"
+                     style="width:64px; height:64px; margin-right:12px;" 
+                     src="{{usrDtls.picUrl}}"
+                     />
+                <h2 style="margin-bottom:0;">
+                    {{usrDtls.name}}
+                </h2>
+                <h3><small>Corporation / Alliance</small></h3>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>All Time</h3>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.totals.wormholesAdded}} </strong>
+                    <span>wormholes added</span>
+                </div>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.wpc + usrDtls.fwpc}}</strong>
+                    wormholes part completed
+                    <small ng-show="usrDtls.fwpc">including {{usrDtls.fwpc}} wormholes for other users</small>
+                </div>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.wc + usrDtls.fwc}}</strong>
+                    wormholes completed
+                    <small ng-show="usrDtls.fwc">including {{usrDtls.fwc}} wormholes for other users</small>
+                </div>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.sps}}</strong>
+                    systems partially scanned
+                </div>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.ss}}</strong>
+                    systems fully scanned
+                </div>
+                <div class="user-details-entry">
+                    <strong>{{usrDtls.l}}</strong>
+                    likes
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <div class="panel panel-default">
+
+            <table class="table table-condensed table-striped">
+                <thead style="text-align:center">
+                    <tr>
+                        <th rowspan="2" style="vertical-align:middle;">Last 10 days</th>
+                        <th colspan="3">Wormholes</th>
+                        <th colspan="2">Systems</th>
+                        <th rowspan="2" style="vertical-align:middle;">Likes</th>
+                    </tr>
+                    <tr>
+                        <th>Added</th>
+                        <th>Part Completed</th>
+                        <th>Completed</th>
+                        <th>Part Scanned</th>
+                        <th>Scanned</th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="day in days">
+                    <td>{{day.datePretty}}</td>
+                    <td>
+                        <span ng-show="day.wa">{{day.wa}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="day.wpc">{{day.wpc}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="day.wc">{{day.wc}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="day.ss">{{day.ss}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="day.sps">{{day.sps}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="day.l">{{day.l}}</span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+</div>

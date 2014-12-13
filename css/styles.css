@@ -1,0 +1,274 @@
+
+body {
+    background:url(../img/class-5-to-highsec-wormhole.jpg) no-repeat center center fixed;
+    background-size:cover;
+}
+
+.panel > h3.panel-header,
+.panel > h2.panel-header {
+	line-height:34px;
+	margin:15px 0 0 15px;
+	float:left;
+}
+
+/* This is a quick hack to provide support for affix in route-finder.html. A more complete
+	solution is desireable.
+*/
+.col-sm-3 > .affix {
+	width: 25%;
+}
+.col-sm-3 > .affix > div {
+	margin-right:30px;
+}
+
+/* Style to indicate the element has hover-over data*/
+.abbr {
+    color: inherit;
+    border-bottom: 1px dotted;
+	cursor:default;
+}
+
+.abbr-link {
+	border-bottom: 1px dotted;
+	color: inherit;
+}
+
+.glyphicon-abbr {
+    cursor:default;
+}
+
+a.glyphicon-btn {
+	color: inherit;
+}
+
+h1 a.glyphicon-btn, h2 a.glyphicon-btn, h3 a.glyphicon-btn, h4 a.glyphicon-btn, h5 a.glyphicon-btn {
+    font-size:85%;
+}
+
+a.glyphicon-btn-unselected {
+	color:lightblue;
+}
+
+
+.clickable:hover {
+	cursor:pointer;
+}
+
+/* Some defined colors for various EVE objects. Perhaps a tag other than 'label' would be better*/
+.bg-highsec {
+    background-color:#00be39;
+}
+.bg-lowsec {
+    background-color:#b95f00;
+}
+.bg-nullsec {
+    background-color:#be0000;
+}
+.bg-wspace {
+    background-color:#428bca;
+}
+.fg-highsec {
+    color:#00be39;
+}
+.fg-lowsec {
+    color:#b95f00;
+}
+.fg-nullsec {
+    color:#be0000;
+}
+.fg-wspace {
+    color:#428bca;
+}
+
+.help-block.has-success,
+.form-control-feedback.has-success {
+	color:#3c763d;
+}
+.help-block.has-warning,
+.form-control-feedback.has-warning {
+	color:#8a6d3b;
+}
+.help-block.has-error,
+.form-control-feedback.has-error {
+	color:#a94442;
+}
+
+.btn {
+    background-image:none;
+    text-shadow:none;
+    box-shadow:none;
+}
+
+.btn-group-panel-options .btn {
+	border-right:none;
+}
+.btn-group-panel-options > .btn:first-child,
+.btn-group-panel-options > .btn-group:first-child > .btn:first-of-type{
+    border-top-left-radius: 0;
+	border-top:0;
+}
+.btn-group-panel-options > .btn:last-child,
+.btn-group-panel-options > .btn-group:last-child > .btn:last-of-type{
+    border-bottom-right-radius: 0;
+}
+
+
+/* For buttons nested inside td elements*/ 
+.table > thead > tr > .td-btn, 
+.table > tbody > tr > .td-btn, 
+.table > tfoot > tr > .td-btn {
+	padding:0;
+}
+.td-btn .btn {
+	border:none;
+	border-radius:0;
+	padding-top:7px;
+	padding-bottom:7px;	
+}
+
+
+.td-btn .btn-default {
+	background-color:transparent;}
+	.td-btn .btn-default:hover {
+		background-color:#e0e0e0;
+	}
+
+.table > thead > tr > .td-thin, 
+.table > tbody > tr > .td-thin, 
+.table > tfoot > tr > .td-thin {
+	padding-top:0;
+	padding-bottom:0;
+}
+
+
+.table-tiny > thead > tr > th,
+.table-tiny > tbody > tr > th,
+.table-tiny > tfoot > tr > th,
+.table-tiny > thead > tr > td,
+.table-tiny > tbody > tr > td,
+.table-tiny > tfoot > tr > td {
+  padding: 0;
+}
+
+.table-hover-clicky > tbody > tr > td {
+	cursor:pointer;
+}
+
+/*.list-group-expands > .list-group-item:nth-child(4n+1),
+.list-group-expands > .list-group-item:nth-child(4n+2){
+  background-color: #f9f9f9;
+}
+.list-group-expands > a.list-group-item:nth-child(4n+1):hover,
+.list-group-expands > a.list-group-item:nth-child(4n+2):hover{
+  background-color: #f0f0f0;
+}*/
+
+.list-group-item-child {
+	border-top:none;
+	padding-top:0;
+	padding-bottom:10px;
+}
+.list-group-item-condensed {
+	padding: 4px 6px;
+}
+
+
+/* Smaller popovers*/
+.popover-content {
+    padding: 3px 5px;
+}
+
+
+/* Tools for putting two buttons in list groups*/
+.list-group-item-multi-container {
+    display:table;
+    padding:0;
+    table-layout:fixed;
+}
+.list-group-item-multi {
+    display:table-cell;
+    width:1%;
+    padding: 10px 15px;
+    border:none;
+}
+.fill-table {
+    width:100%;
+}
+
+
+
+/* Darken the default warning color for list group items*/
+
+/*a.list-group-item-danger, a.list-group-item-warning, a.list-group-item-success {
+    color:#555;
+}*/
+
+.list-group-item-warning {
+    background-color:#FCF4C9;
+}
+a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+    background-color: #FAEDAF !important;
+}
+
+.list-group-item-highlighted {
+    background-color:#E8F2F7;
+}
+a.list-group-item-highlighted:hover, a.list-group-item-highlighted:focus {
+    background-color: #D3E8F3 !important;
+}
+
+
+.popover-toggle-list {
+    padding:0;
+}
+.popover-toggle-list > .popover-content {
+    padding: 0;
+}
+.popover-toggle-list > .popover-content .list-group {
+    margin:0;
+}
+
+
+[ng\:cloak],   
+[ng-cloak],   
+[data-ng-cloak],   
+[x-ng-cloak],   
+.ng-cloak,   
+.x-ng-cloak {  
+    display: none !important;  
+}  
+
+
+.eve-login-btn {
+    display:block;
+    background-image:url(../img/EVE_SSO_Login_Buttons_Large_Black.png);
+    width:270px;
+    height:45px;
+    border-width: 0;
+    background-color: transparent;
+}
+
+
+.panel > .panel-body > h1,
+.panel > .panel-body > h2,
+.panel > .panel-body > h3,
+.panel > .panel-body > h4 {
+    margin-top:0;
+}
+
+/*.modal-element-cover {
+	background-color:rgba(0,0,0,0.7);
+}*/
+
+
+tr.vertical-middle > td {
+	vertical-align:middle !important;
+}
+
+
+.user-details-entry {
+	margin-top:6px;
+	font-size:120%;
+	line-height:1;
+
+}

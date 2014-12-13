@@ -1,0 +1,23 @@
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+
+        <h2 ng-show="!failed">Attempting Login...</h2>
+        <h2 ng-show="failed">Login Failed!</h2>
+
+        <strong>{{statusText}}</strong>
+
+        <div ng-show="failed">
+            <a data-ui-sref="login">Attempt another login?</a>
+        </div>
+
+        <div ng-show="!failed">
+            <p>If no one has logged in for a while, it might take up to 10 seconds for the login server to wake up.</p>
+        </div>
+
+    </div>
+
+
+</div>
+

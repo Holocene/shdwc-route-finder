@@ -1,0 +1,77 @@
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+
+            <h3 class="panel-header">
+                Logs
+            </h3>
+
+            <div class="panel-body">
+                <a class="pull-right" ng-click="clear()" href=""
+                   title="clears logs older than 48 hours">clear old logs</a>
+            </div>
+
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-sm-4">
+                            <a href="" 
+                               ng-click="dateMode = ! dateMode"
+                               class="abbr-link">
+                                Date
+                            </a>
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('time')"></a>
+                        </th>
+                        <th class="col-sm-3">
+                            User
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('user')"></a>
+                            <a href="" data-toggle-list-popover="userFilters"
+                               data-placement="right">
+                                filter
+                            </a>
+                            <span ng-show="hasUserFilters()">(filtering)</span>
+                        </th>
+                        <th class="col-sm-3">
+                            Action
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('action')"></a>
+                            <a href="" data-toggle-list-popover="actionFilters"
+                               data-placement="right">
+                                filter
+                            </a>
+                            <span ng-show="hasActionFilters()">(filtering)</span>
+                        </th>
+                        <th class="col-sm-2">
+                            Info
+                        </th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="stat in stats track by $index">
+                    <td>
+                        <span ng-show="!dateMode">{{stat.getTimePretty()}}</span>
+                        <span ng-show="dateMode">{{stat.getTimeFormal()}}</span>
+                    </td>
+                    <td>
+                        {{stat.user}}
+                    </td>
+                    <td>{{stat.action}}</td>
+                    <td>
+                        {{stat.info}}
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div data-ui-view></div>
+    </div>
+
+</div>
+

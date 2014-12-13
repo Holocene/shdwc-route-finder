@@ -1,0 +1,65 @@
+
+
+<div class="row">
+    <div class="col-md-9">
+
+        <div class="panel panel-default">
+
+            <h3 class="panel-header">
+                Bridge List
+            </h3>
+
+            <div class="panel-body">
+                <a class="pull-right" ng-click="create()" href="">New</a>
+            </div>
+
+
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-sm-4">Name</th>
+                        <th class="col-sm-3">
+                            Home System
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('homeSystem')"></a>
+                        </th>
+                        <th class="col-sm-3">
+                            Type
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('type')"></a>
+                        </th>
+                        <th class="col-sm-2">
+                            Systems in Range
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('systemsInRange')"></a>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="bridge in bridges" ng-click="edit(bridge)"
+                    ng-class="{info: bridge === selected}">
+                    <td>{{bridge.name}}</td>
+                    <td>
+                        <a class="abbr-link" href=""
+                           data-system-details-tooltip="bridge.homeSystem"
+                           data-tooltip-placement="right">
+                            {{bridge.homeSystem.systemName}}
+                        </a>
+                    </td>
+                    <td>{{bridge.bridgeType}}</td>
+                    <td>
+                        <a href="" ng-click="systemsInRange(bridge);$event.stopPropagation()">
+                            {{bridge.systemsInRange}}
+                        </a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div data-ui-view></div>
+    </div>
+
+</div>
+

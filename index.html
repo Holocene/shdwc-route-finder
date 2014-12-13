@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="wormholeMapper">
+<head>
+    <meta charset="utf-8" />
+    <title>Wormhole Mapper</title>
+
+    <!--Libraries -->
+    <script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- source-->
+    <script src="config.js"></script>
+    <script src="js/bundle-lib.js?v=0.1.3"></script>
+    <script src="js/bundle.js?v=0.1.3"></script>
+
+    <!-- TODO -->
+    <!--<script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="lib/angular-strap.min.js"></script>
+    <script src="lib/moment.js"></script>
+    <script src="lib/queue.js"></script>
+    <script src="lib/store_json2.min.js"></script>-->
+
+    <!--Shims TODO --> 
+    <!--<script src="lib/shims/startswith.js"></script>
+    <script src="lib/shims/es6-shims.js"></script>-->
+
+    <!-- Our code TODO -->
+    <!--<script src="js/helpers.js"></script>
+    <script src="js/start.js"></script>-->
+
+    <!-- Styles-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body ng-controller="GlobalController">
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" data-ui-sref="index">Wormhole Mapper</a>
+
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: is('system-list')}">
+                    <a data-ui-sref="system-list">Systems</a>
+                </li>
+                <li ng-class="{active: is('wormhole-list')}">
+                    <a data-ui-sref="wormhole-list">Wormholes</a>
+                </li>
+                <li ng-class="{active: is('bridge-list')}">
+                    <a data-ui-sref="bridge-list">Bridges</a>
+                </li>
+                <li ng-class="{active: is('route-finder')}">
+                    <a data-ui-sref="route-finder">Route Finder</a>
+                </li>
+                <!--<li ng-class="{active: is('distance-display')}">
+                    <a data-ui-sref="distance-display">Distance Display </a>
+                </li>-->
+            </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right" ng-if="!user && hasLoaded">
+                <li><a data-ui-sref="login">Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-if="user && hasLoaded">
+                <li ng-class="{active: is('leaderboard')}">
+                    <a data-ui-sref="leaderboard">Leaderboard</a>
+                </li>
+                <!--<li data-dropdown>
+                    <a href="" data-dropdown-toggle>
+                        Stats <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-class="{active: is('leaderboard')}">
+                            <a data-ui-sref="leaderboard">Leaderboard</a>
+                        </li>
+                        <li ng-class="{active: is('stats')}">
+                            <a data-ui-sref="stats">Logs</a>
+                        </li>
+                    </ul>
+                </li>-->
+                <li data-dropdown>
+                    <a href="" data-dropdown-toggle>
+                        {{user.name}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-ui-sref="user-details({user: user.name})">My Profile</a></li>
+                        <li><a data-ui-sref="users">User List</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li><a href="" ng-click="logout()">Logout</a></li>
+						<li role="presentation" class="divider"></li>
+						<li class="disabled"><a>Version 0.1.3</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid" role="main">
+
+        <div ng-show="false">This site uses the latest javascript inovations, and is only tested
+        under Firefox and Chrome. You should also disable Noscript.</div>
+
+        <div data-ui-view>
+            Loading initial data...
+        </div>
+
+    </div>
+
+    <div class="container-fluid ng-cloak" ng-if="siteConfig.testEnvironment">
+        <div class="alert alert-danger" role="alert" style="position:fixed; bottom:0; right:15px;">
+            <strong style="margin:0; font-size:24px; line-height:30px;">
+                In Development
+            </strong>
+            <div style="">
+                Report issues
+                <a href="http://pitch-black.org/forum/viewtopic.php?f=17&t=3053">on the forums</a>.
+                or
+                <a href="https://github.com/Holocene/shdwc-route-finder/issues">at the issue tracker</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

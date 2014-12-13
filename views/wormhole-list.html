@@ -1,0 +1,143 @@
+
+
+
+<div class="row">
+    <div class="col-md-9">
+
+        <div class="panel panel-default">
+
+            <h3 class="panel-header">
+                Wormhole List
+            </h3>
+
+            <div class="panel-body">
+                <a class="pull-right" ng-click="create()" href="">New</a>
+            </div>
+
+            <table class="table table-condensed table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Near System
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('near')"></a>
+                        </th>
+                        <th>
+                            Far System
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('far')"></a>
+                        </th>
+                        <th>
+                            Class
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('class')"></a>
+                        </th>
+                        <th>
+                            Time found
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('timeFound')"></a>
+                        </th>
+                        <th>
+                            Max lifetime
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('timeExpires')"></a>
+                        </th>
+                        <th>
+                            <a class="abbr"
+                               data-tooltip="equivilent K-space jumps">
+                                Jumps
+                            </a>
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('jumps')"></a>
+                        </th>
+                        <th>
+                            <a class="abbr"
+                               data-tooltip="distance from {{home.systemName}}">
+                                Distance
+                            </a>
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('distance')"></a>
+                        </th>
+                        <th>Note</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="wormhole in wormholes track by wormhole.wormhole.id" ng-click="edit(wormhole)"
+                    ng-class="{info: wormhole === selected, 
+                               danger: wormhole.isDuplicate || wormhole.isTransientDuplicate}">
+                    <td>
+                        <a class="abbr-link" href=""
+                           data-system-details-tooltip="wormhole.nearSystem" 
+                           data-tooltip-placement="right">
+                            {{wormhole.nearSystem.systemName}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr-link" href=""
+                           data-system-details-tooltip="wormhole.farSystem"
+                           data-tooltip-placement="right">
+                            {{wormhole.farSystem.systemName}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr" ng-if="wormhole.classTooltip"
+                           data-tooltip="{{wormhole.classTooltip}}"
+                           data-tooltip-placement="right">
+                            {{wormhole.class}}
+                        </a>
+                        <span ng-if="!wormhole.classTooltip">
+                            {{wormhole.class}}
+                        </span>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.dateFound}}">{{wormhole.dateFoundFuzzy}}</a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.dateExpires}}">{{wormhole.dateExpiresFuzzy}}</a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="no highsec: {{wormhole.equivLowsecJumps}}">
+                        {{wormhole.equivJumps}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{wormhole.closestEndName}}">
+                            {{wormhole.distanceFromHome}}
+                        </a>
+                    </td>
+                    <td>
+                        <span ng-if="wormhole.longNote"
+                              class="abbr"
+                              data-tooltip-placement="right"
+                              data-tooltip="{{wormhole.longNote}}">
+                            {{wormhole.note}}
+                        </span>
+                        <span ng-if="!wormhole.longNote">{{wormhole.note}}</span>
+                    </td>
+                    <td>
+                        <span ng-show="wormhole.isDuplicate || wormhole.isTransientDuplicate"
+                              class="glyphicon glyphicon-warning-sign"></span>
+                        <span ng-show="wormhole.user"
+                              class="glyphicon glyphicon-info-sign glyphicon-abbr"
+                              data-tooltip="Added by {{wormhole.user}}"
+                              data-tooltip-placement="right"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+        <div data-ui-view></div>
+    </div>
+
+</div>

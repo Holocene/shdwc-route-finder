@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading" ng-if="!isExisting">
+        {{bridge.name}}
+        <a href="" class="pull-right" ng-click="close()">Close</a>
+    </div>
+
+    <table class="table table-striped table-condensed" style="table-layout:fixed;">
+        <tr ng-repeat="sys in systems">
+            <td style="width:70%;">
+                <a class="abbr-link" href=""
+                   data-system-details-tooltip="sys.sys"
+                   data-tooltip-placement="right">
+                    {{sys.name}}
+                </a>
+            </td>
+            <td style="width:30%;">
+                {{sys.dist}}
+            </td>
+        </tr>
+    </table>
+</div>

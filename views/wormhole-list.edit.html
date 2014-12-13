@@ -1,0 +1,71 @@
+
+
+<div class="panel panel-default" ng-controller="WormholeEditController">
+
+    <div class="panel-heading" ng-if="!isExisting">
+        Add wormhole
+        <a href="" class="pull-right" ng-click="close()">Close</a>
+    </div>
+    <div class="panel-heading" ng-if="isExisting">
+        Edit wormhole
+        <a href="" class="pull-right" ng-click="close()">Close</a>
+    </div>
+
+    <div class="panel-body">
+        <form role="form">
+            <div class="form-group has-feedback">
+                <label class="control-label">Head system</label>
+                <input class="form-control"
+                       data-system-search="wormhole.startSystemId"
+                       data-system-search-use-id="true" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                      ng-show="wormhole.startSystemId"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <label>Tail system</label>
+                <input class="form-control"
+                       data-system-search="wormhole.endSystemId"
+                       data-system-search-use-id="true" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                      ng-show="wormhole.endSystemId"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label>Class</label>
+                <input class="form-control"
+                       data-wormhole-search="wormhole.wormholeClassName"
+                       data-wormhole-search-use-id="true" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                      ng-show="wormhole.wormholeClassName"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label>Note</label>
+                <textarea class="form-control"
+                          ng-model="wormhole.note"
+                          placeholder="Max 140 characters"
+                          style="resize:vertical;"></textarea>
+                <span class="help-block" style="text-align:right;"
+                      ng-class="{'has-success': wormhole.noteIsShort(),
+                                 'has-warning': wormhole.noteIsMedium(),
+                                 'has-error': wormhole.noteIsTooLong()}">
+                    <span>{{wormhole.note ? wormhole.note.length : 0}}</span>
+                    <span class="glyphicon glyphicon-ok"
+                          ng-show="wormhole.noteIsShort()"></span>
+                    <span class="glyphicon glyphicon-unchecked"
+                          ng-show="wormhole.noteIsMedium()"></span>
+                    <span class="glyphicon glyphicon-remove"
+                          ng-show="wormhole.noteIsTooLong()"></span>
+                </span>
+                <!--<span class="glyphicon glyphicon-ok form-control-feedback"
+                  ng-show="wormhole.wormholeClassName"></span>-->
+            </div>
+
+            <button ng-disabled="!canSave()" ng-click="save()" class="btn btn-primary">Save</button>
+            <button ng-show="isExisting" class="btn btn-danger pull-right"
+                    ng-click="delete()">
+                Delete
+            </button>
+        </form>
+    </div>
+</div>

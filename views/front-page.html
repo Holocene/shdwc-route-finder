@@ -1,0 +1,135 @@
+
+<div class="alert alert-info" role="alert">
+    <strong>
+        The tool is still under development. Please report any bugs you find, and any feature
+        suggestions you might have.
+    </strong>  
+</div>
+
+<div class="row">
+
+    <div class="col-sm-6">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <h2>Summary</h2>
+
+                <p>
+                    This is a tool for keeping track of wormholes, and also route finding through them. It is
+                    still in development, and is only tested in Firefox and Chrome.
+                </p>
+
+                <p>
+                    Check out the 'route finder' tab, which is the most interesting thing in the
+                    system right now.
+                </p>
+
+                <p>
+                    There are lots of features left to add. Two that I can think of are the <b>Distance Display</b>
+                    and <b>Automatic deletion of expired wormholes</b>, but I'm sure there is a bunch more that could be done. If you have
+                    any suggestions, post them to the forums,
+                    <a href="https://github.com/Holocene/shdwc-route-finder/issues">add an issue in the issue tracker</a>
+                    or contact me directly: Olixia Castitatis. All suggestions are appreciated, but if you have an
+                    idea for an extensive new feature, it's best if you try to set out exactly how you imagine it
+                    working, <a href="http://pitch-black.org/forum/viewtopic.php?f=17&t=3053">
+                        as I tried to do in my initial
+                        post on the forums here
+                    </a>.
+                </p>
+
+                <p>
+                    The site is developed using javascript, html and css. Angular JS provides the framework in which
+                    the site is built. The site is hosted by <a href="https://github.com/">Github</a>, and the
+                    database is provided by <a href="https://www.firebase.com/">Firebase.</a> 
+                    Some backend services are provided by 
+                    <a href="https://www.heroku.com/home">Heroku</a>.
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <h2>How do I use this tool?</h2>
+
+                <h3>Scanning</h3>
+                <ol>
+                    <li>Go to the <a href="/#/system-list">systems page</a></li>
+                    <li>Find the system you are in.</li>
+                    <li>In EVE, scan some signatures with your probe scanner. Select them all, then copy 
+                    them to clipboard (hint: ctrl-A, ctrl-C).</li>
+                    <li>Click 'paste scan results' to copy your results into the tool</li>
+                    <li>Add any wormholes you find.
+                    </li>
+                </ol>
+                <p>If you add the signatures you find to the tool, it's easier for the next prober 
+                to work out what sigs are new and what have stayed the same.</p>
+
+                <h3>Route finding</h3>
+                <p>Go to the <a href="#/route-finder">route finding page.</a> Enter your start
+                and destination system and you'll see an array of routes. Use the filters on the
+                right to set system restrictions (no highsec) or transport method restrictions (no titans,
+                or no wormholes).</p>
+
+                <!--<h3>Find a route?</h3>
+
+                <p>Go to the Route Finder tab and enter in a start and end system in the fields on
+                the right. Once you've entered two valid systems, the route finder results will appear.</p>
+                <p>Toggle the options under 'System Filters' and 'Transport Method Filters' to change
+                the routes that are generated.</p>
+
+                <h3>Add a wormhole?</h3>
+
+                <p>Go to the Wormholes tab, click 'New', type in the start and finish systems, then
+                click 'Save'. You don't have to enter a class. </p>
+                <p>Alternatively, go to the Systems tab, find the start system and click the '+' next 
+                to Wormholes. Type in a destination and click 'Save' - you don't have to 
+                enter an ID or class.</p>
+
+                <h3>Add a scan signature?</h3>
+                <p>Find the system you are scanning on the Systems tab. Click the '+' next
+                to Signatures, enter the ID of the sig and click 'Save'. You
+                don't have to enter the type of the signature.</p>
+                <p>Alternatively, click 'paste scan results' on the systems view and copy in the 
+                scan results from your probe scanner in EVE.</p>
+
+                <h3>Link a scan signature to a wormhole?</h3>
+                <p>On the Systems view, select an ID from the dropdown list on the wormhole. You need
+                to create the signature before it can be added to a wormhole.</p>
+
+                <h3>Update the Last Observed/Last Scanned fields?</h3>
+                <p>Find the relevant system in the Systems tab. Click 'Actions' and then 'mark as scanned'.
+                For signatures and wormholes, click the individual 'Actions' dropdown and then 'Record observation'
+                for wormholes, or 'Record scan' for signatures.</p>-->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--<h3>Todo</h3>
+<h4>Important</h4>
+<ul>
+    <li>User accounts</li>
+    <li>Implement the distance display</li>
+    <li>Systems </li>
+</ul>
+
+<h4>Kind of important</h4>
+<ul>
+    <li>Notes for wormholes (and bridges maybe?)</li>
+</ul>
+
+<h4>Would be nice</h4>
+<ul>
+    <li>Tooltip/Popover when you hover over a wormhole's class</li>
+    <li>Tooltip/Popover when you hover over a system name</li>
+    <li>Tooltip/Popover to tell you what systems are in range of a bridge</li>
+    <li>Loading indicators for data</li>
+</ul>-->

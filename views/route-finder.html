@@ -1,0 +1,77 @@
+<div class="row">
+
+    <div class="col-lg-10 col-sm-9" data-ui-view>
+
+    </div>
+
+    <div class="col-lg-2 col-sm-3">
+        <div>
+            <!-- start/end system-->
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Route Parameters
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">
+                                start system
+                            </label>
+                            <a href="" class="pull-right glyphicon glyphicon-random glyphicon-btn"
+                               ng-show="startSystem && endSystem"
+                               ng-click="reverse()"></a>
+                            <input class="form-control"
+                                   data-system-search="startSystem"
+                                   data-search-query="startSystemQuery" />
+                            <span class="glyphicon glyphicon-ok form-control-feedback"
+                                  ng-show="startSystem"></span>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            <label class="control-label">end system</label>
+                            <input class="form-control"
+                                   data-system-search="endSystem"
+                                   data-search-query="endSystemQuery" />
+                            <span class="glyphicon glyphicon-ok form-control-feedback"
+                                  ng-show="endSystem"></span>
+                        </div>
+
+                        <!--<div class="form-group has-feedback">
+                            <label class="col-sm-3 control-label">min hull size</label>
+                            <div class="col-sm-9">
+                                <select class="form-control"></select>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"
+                                        ng-show="validEndQuery"></span>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <!--system filters-->
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        System Filters
+                    </div>
+
+                    <div data-toggle-list="systemTypes" class="list-group"></div>
+                </div>
+            </div>
+
+            <!-- method filters-->
+            <div class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Transport Method Filters
+                    </div>
+                    <div data-toggle-list="transportMethods" class="list-group"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

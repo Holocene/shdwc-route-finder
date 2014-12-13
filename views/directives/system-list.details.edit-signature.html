@@ -1,0 +1,98 @@
+<td colspan="6" class="info">
+
+    <form role="form">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input class="form-control"
+                           placeholder="AAA-###"
+                           ng-model="signature.id"
+                           ng-disabled="isExisting"
+                           data-trigger-on-enter="save()" />
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+
+                <div class="form-group has-feedback">
+                    <label>Type</label>
+                    <select class="form-control" ng-model="signature.type"
+                            ng-options="sig for sig in allowedTypes"
+                            data-trigger-on-enter="save()">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group has-feedback">
+                    <label>Note</label>
+                    <span class="help-block" style="float:right; margin:0;"
+                          ng-class="{'has-success': signature.noteIsShort(),
+                                 'has-warning': signature.noteIsMedium(),
+                                 'has-error': signature.noteIsTooLong()}">
+                        <span>{{signature.note ? signature.note.length : 0}}</span>
+                        <span class="glyphicon glyphicon-ok"
+                              ng-show="signature.noteIsShort()"></span>
+                        <span class="glyphicon glyphicon-unchecked"
+                              ng-show="signature.noteIsMedium()"></span>
+                        <span class="glyphicon glyphicon-remove"
+                              ng-show="signature.noteIsTooLong()"></span>
+                    </span>
+                    <textarea class="form-control"
+                              ng-model="signature.note"
+                              placeholder="Max 140 characters"
+                              style="resize:vertical;"></textarea>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary"
+                                ng-disabled="!canSave()"
+                                ng-click="save()">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                ng-click="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</td>
+
+
+<!--<td class="td-thin">
+    <input class="form-control"
+           placeholder="AAA-###"
+           ng-model="signature.id"
+           ng-disabled="isExisting"
+           data-trigger-on-enter="save()"/>
+</td>
+<td class="td-thin">
+    <select class="form-control" ng-model="signature.type"
+            ng-options="sig for sig in allowedTypes"
+            data-trigger-on-enter="save()">
+        <option></option>
+    </select>
+</td>
+<td class="td-btn" colspan="3">
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-primary"
+                ng-disabled="!canSave()"
+                ng-click="save()">
+            Save
+        </button>
+        <button type="button" class="btn btn-danger"
+                ng-click="close()">
+            Cancel
+        </button>
+    </div>
+</td>-->

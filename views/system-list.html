@@ -1,0 +1,122 @@
+
+<div class="row">
+    <div class="col-md-4">
+
+        <div>
+            <form role="form">
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <input data-system-search="selectedSystem"
+                               data-search-query="searchQuery"
+                               class="form-control"
+                               placeholder="Find system..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"
+                                    ng-click="clearSearch()">&times;</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="panel panel-default">
+            <h3 class="panel-header">Pinned Systems</h3>
+
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-sm-3">
+                            Name
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('name')"></a>
+                        </th>
+                        <th class="col-sm-3">
+                            <a href="" ng-click="toggleScanMode()" class="abbr-link">
+                                <span ng-show="scanMode=='full'">Last Scan</span>
+                                <span ng-show="scanMode=='partial'">Last Partial</span>
+                            </a>
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('lastScan')"></a>
+                        </th>
+                        <!--<th>Last Partial Scan</th>-->
+                        <th class="col-sm-3">
+                            Wormholes
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('wormholes')"></a>
+                        </th>
+                        <th class="col-sm-3">
+                            <a href="" ng-click="toggleDistanceMode()" class="abbr-link">
+                                <span ng-show="distanceMode=='distance'"
+                                      data-tooltip="distance from {{home}}">
+                                    Distance
+                                </span>
+                                <span ng-show="distanceMode=='region'">Region</span>
+                            </a>
+
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('distance')"></a>
+                        </th>
+                        <!--<th>Signatures</th>-->
+                        <th>
+                            <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                               ng-click="sort('starred')"></a>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tr ng-repeat="sys in scannedSystems track by sys.id"
+                    ng-click="go(sys.data)"
+                    ng-class="{'info': sys.isSelected(selectedSystem),
+                               'warning': sys.isMedium(scanMode) && !sys.isSelected(selectedSystem),
+                               'danger': sys.isOld(scanMode) && !sys.isSelected(selectedSystem)}">
+                    <td>
+                        <a href="" class="abbr"
+                           data-tooltip-placement="right"
+                           data-system-details-tooltip="sys.data">
+                            {{sys.name}}
+                        </a>
+                    </td>
+                    <td>
+                        <a class="abbr" href=""
+                           ng-show="scanMode=='full'"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{sys.lastScannedPretty}}">
+                            {{sys.lastScannedFuzzy}}
+                        </a>
+                        <a class="abbr" href=""
+                           ng-show="scanMode=='partial'"
+                           data-tooltip-placement="right"
+                           data-tooltip="{{sys.lastPartialScanPretty}}">
+                            {{sys.lastPartialScanFuzzy}}
+                        </a>
+                    </td>
+                    <td>{{sys.numWormholes}}</td>
+                    <td>
+                        <span ng-show="distanceMode=='distance'">
+                            {{sys.distance}}
+                        </span>
+                        <span ng-show="distanceMode=='region'">
+                            {{sys.region}}
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-show="{{sys.data.isPinned}}" class="glyphicon glyphicon-pushpin">
+                        </span>
+                        <span ng-show="{{sys.data.isStarred}}" class="glyphicon glyphicon-star">
+                        </span>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-8" data-ui-view>
+
+
+    </div>
+
+
+</div>

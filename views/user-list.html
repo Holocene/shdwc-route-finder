@@ -1,0 +1,53 @@
+<div class="panel panel-default" style="overflow-x:auto;">
+
+    <h3 class="panel-header">
+        Users
+    </h3>
+
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th style="width:1%;"></th>
+                <th>
+                    Name
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('name')"></a>
+                </th>
+                <th>Corporation</th>
+                <th>Alliance</th>
+                <th>
+                    Total Wormholes Added
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('wormholesAdded')"></a>
+                </th>
+                <th>
+                    Last Contribution
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('lastModified')"></a>
+                </th>
+            </tr>
+        </thead>
+
+        <tr ng-repeat="user in items" class="vertical-middle">
+            <td><img src="{{user.picUrl}}" style="width:32px; height:32px;"/> </td>
+            <td>
+                <a href="" ng-click="select(user);">
+                    {{user.name}}
+                </a>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                <span ng-if="user.leaderboardTotals.wormholesAdded">
+                    {{user.leaderboardTotals.wormholesAdded}}
+                </span>
+            </td>
+            <td>
+                <a class="abbr" ng-if="user.lastModified"
+                   data-tooltip="{{user.lastModifiedPretty}}"
+                   data-tooltip-placement="right">{{user.lastModifiedFuzzy}}</a>
+                <span></span>
+            </td>
+        </tr>
+    </table>
+</div>

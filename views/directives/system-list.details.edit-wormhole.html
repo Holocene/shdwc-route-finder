@@ -1,0 +1,79 @@
+<td colspan="10" class="info">
+
+    <form role="form">
+        <div class="row">
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Signature</label>
+                    <select ng-disabled="allowedSigs.length === 0" class="form-control input-sm"
+                            ng-model="sig"
+                            style="width:100%;"
+                            ng-options="sig.id for sig in allowedSigs">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+
+                <div class="form-group has-feedback">
+                    <label>Destination</label>
+                    <input data-system-search="destination"
+                           placeholder="destination system"
+                           class="form-control" />
+                    <span class="glyphicon glyphicon-ok form-control-feedback"
+                          ng-show="destination"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label>Class</label>
+                    <input data-wormhole-search="wormhole.wormholeClassName"
+                           placeholder="wormhole class"
+                           data-wormhole-search-use-id="true"
+                           class="form-control" />
+                    <span class="glyphicon glyphicon-ok form-control-feedback"
+                          ng-show="wormhole.wormholeClassName"></span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group has-feedback">
+                    <label>Note</label>
+                    <span class="help-block" style="float:right; margin:0;"
+                          ng-class="{'has-success': wormhole.noteIsShort(),
+                                 'has-warning': wormhole.noteIsMedium(),
+                                 'has-error': wormhole.noteIsTooLong()}">
+                        <span>{{wormhole.note ? wormhole.note.length : 0}}</span>
+                        <span class="glyphicon glyphicon-ok"
+                              ng-show="wormhole.noteIsShort()"></span>
+                        <span class="glyphicon glyphicon-unchecked"
+                              ng-show="wormhole.noteIsMedium()"></span>
+                        <span class="glyphicon glyphicon-remove"
+                              ng-show="wormhole.noteIsTooLong()"></span>
+                    </span>
+                    <textarea class="form-control"
+                              ng-model="wormhole.note"
+                              placeholder="Max 140 characters"
+                              style="resize:vertical;"></textarea>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary"
+                                ng-disabled="!canSave()"
+                                ng-click="save()">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-danger"
+                                ng-click="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</td>
