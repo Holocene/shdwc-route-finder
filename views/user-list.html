@@ -31,7 +31,7 @@
         <tr ng-repeat="user in items" class="vertical-middle">
             <td><img src="{{user.picUrl}}" style="width:32px; height:32px;"/> </td>
             <td>
-                <a href="" ng-click="select(user);">
+                <a href="" ui-sref="user-details({user: user.name})">
                     {{user.name}}
                 </a>
             </td>

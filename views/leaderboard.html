@@ -1,25 +1,40 @@
 
-<div class="panel panel-default">
+<div class="panel panel-default clearfix">
+
     <div class="panel-body">
-        <h1 style="margin:0;">
+        <h1 style="margin:0; line-height:40px;" class="pull-left">
             Leaderboard
             <small>(work in progress)</small>
         </h1>
+
+        <!--<div href="" data-dropdown class="pull-right">
+            <a href="" data-dropdown-toggle style="line-height:40px;">
+                TODO <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Yesterday</a></li>
+                <li><a href="">Yesterday</a></li>
+                <li><a href="">Yesterday</a></li>
+                <li><a href="">Yesterday</a></li>
+                <li><a href="">Yesterday</a></li>
+            </ul>
+        </div>-->
     </div>
-    <span>{{lol}}</span>
 </div>
 
 <div class="row">
 
     <div class="col-sm-3">
         <leaderboard-part title="Wormholes Added Today"
-                          leaderboard-stats="wrmAddedToday">
+                          leaderboard-stats="wrmAddedToday"
+                          show-total="true">
         </leaderboard-part>
     </div>
 
     <div class="col-sm-3">
         <leaderboard-part title="Total Wormholes Added"
-                          leaderboard-stats="wrmAddedAlltime">
+                          leaderboard-stats="wrmAddedAlltime"
+                          show-total="true">
         </leaderboard-part>
     </div>
 

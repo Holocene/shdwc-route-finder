@@ -3,7 +3,6 @@
      ng-show="hasLoaded">
     <div class="panel-body">
         <h3 style="margin:0;">{{title}}</h3>
-
         <div ng-show="!ldrData.length">
             (None)
         </div>
@@ -14,7 +13,7 @@
                 <img src="{{user.picUrl}}" style="width:32px; height:32px;" />
             </td>
             <td>
-                <a href="" ng-click="select(user);">
+                <a href="" ui-sref="user-details({user: user.name})">
                     {{user.name}}
                 </a>
             </td>
@@ -23,17 +22,21 @@
             </td>
         </tr>
 
-        <tr ng-if="remaining">
+        <tr ng-if="showRemainder">
             <td></td>
-            <td>The Rest</td>
+            <td style="font-size:150%">The Rest</td>
             <td style="font-size:150%;">
-                {{remaining}}
+                {{remainder}}
             </td>
         </tr>
 
         <tr ng-if="showTotal">
             <td></td>
-            <td>Total</td>
+            <td style="font-size:150%" ng-if="showRemainder">Total</td>
+            <td ng-if="!showRemainder">
+                <span style="font-size:150%">Total</span>
+                <small ng-if="remainder">(+ {{remainder}} more)</small>
+            </td>
             <td style="font-size:150%;">
                 {{total}}
             </td>
