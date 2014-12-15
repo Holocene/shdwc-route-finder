@@ -4,7 +4,7 @@
     <div class="panel-body">
         <h1 style="margin:0; line-height:40px;" class="pull-left">
             Leaderboard
-            <small>(work in progress)</small>
+            <small>(Work in progress)</small>
         </h1>
 
         <!--<div href="" data-dropdown class="pull-right">
@@ -22,52 +22,82 @@
     </div>
 </div>
 
-<div class="row">
+<div class="panel panel-default clearfix" ng-show="hasLoadedLeaderboard">
+    <div class="panel-body">
+        <h2 style="margin:0;">
+            Wormholes Completed
+            <small class="abbr"
+                    data-tooltip-placement="right"
+                    data-tooltip="A wormhole becomes complete when it has a class and two signatures">
+                ?
+            </small>
 
-    <div class="col-sm-3">
-        <leaderboard-part title="Wormholes Added Today"
-                          leaderboard-stats="wrmAddedToday"
-                          show-total="true">
-        </leaderboard-part>
+        </h2>
     </div>
-
-    <div class="col-sm-3">
-        <leaderboard-part title="Total Wormholes Added"
-                          leaderboard-stats="wrmAddedAlltime"
-                          show-total="true">
-        </leaderboard-part>
-    </div>
-
 </div>
 
 <div class="row">
-
     <div class="col-sm-3">
-        <leaderboard-part title="Wormholes Part Completed Today"
-                          leaderboard-stats="wrmPartCompleteToday">
+        <leaderboard-part title="Today"
+                          leaderboard-stats="whComplete.today"
+                          max-Records="5">
         </leaderboard-part>
     </div>
 
     <div class="col-sm-3">
-        <leaderboard-part title="Total Wormholes Part Completed"
-                          leaderboard-stats="wrmPartCompleteAllTime">
+        <leaderboard-part title="Yesterday"
+                          leaderboard-stats="whComplete.yesterday"
+                          max-records="5">
         </leaderboard-part>
     </div>
 
+    <div class="col-sm-3">
+        <leaderboard-part title="Last 10 days"
+                          leaderboard-stats="whComplete.last10"
+                          max-records="5">
+        </leaderboard-part>
+    </div>
+
+    <div class="col-sm-3">
+        <leaderboard-part title="Total"
+                          leaderboard-stats="whComplete.allTime"
+                          max-records="5">
+        </leaderboard-part>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-show="hasLoadedLeaderboard">
+    <h2 style="margin:0;" class="panel-body">
+        Wormholes Discovered
+    </h2>
 </div>
 
 <div class="row">
-
     <div class="col-sm-3">
-        <leaderboard-part title="Wormholes Completed Today"
-                          leaderboard-stats="wrmCompleteToday">
+        <leaderboard-part title="Today"
+                          leaderboard-stats="whAdded.today"
+                          max-records="5">
         </leaderboard-part>
     </div>
 
     <div class="col-sm-3">
-        <leaderboard-part title="Total Wormholes Completed"
-                          leaderboard-stats="wrmCompleteAllTime">
+        <leaderboard-part title="Yesterday"
+                          leaderboard-stats="whAdded.yesterday"
+                          max-records="5">
         </leaderboard-part>
     </div>
 
+    <div class="col-sm-3">
+        <leaderboard-part title="Last 10 days"
+                          leaderboard-stats="whAdded.last10"
+                          max-records="5">
+        </leaderboard-part>
+    </div>
+
+    <div class="col-sm-3">
+        <leaderboard-part title="Total"
+                          leaderboard-stats="whAdded.allTime"
+                          max-records="5">
+        </leaderboard-part>
+    </div>
 </div>

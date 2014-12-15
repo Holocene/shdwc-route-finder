@@ -3,37 +3,36 @@
      ng-show="hasLoaded">
     <div class="panel-body">
         <h3 style="margin:0;">{{title}}</h3>
-        <div ng-show="!ldrData.length">
-            (None)
-        </div>
     </div>
-    <table class="table table-striped table-condensed">
-        <tr ng-repeat="user in ldrData" class="vertical-middle">
+    <table class="table table-striped table-condensed" ng-show="hasLoaded">
+        <tr ng-repeat="user in data track by user.name" class="vertical-middle">
             <td width="1%">
                 <img src="{{user.picUrl}}" style="width:32px; height:32px;" />
             </td>
-            <td>
+            <td width="84%">
                 <a href="" ui-sref="user-details({user: user.name})">
                     {{user.name}}
                 </a>
             </td>
-            <td style="font-size:150%;">
+            <td width="15%" style="font-size:150%;">
                 {{user.score}}
             </td>
         </tr>
 
-        <tr ng-if="showRemainder">
+        <tr ng-show="!data.length">
             <td></td>
-            <td style="font-size:150%">The Rest</td>
-            <td style="font-size:150%;">
-                {{remainder}}
-            </td>
+            <td><span style="font-size:150%">(None)</span></td>
         </tr>
 
-        <tr ng-if="showTotal">
-            <td></td>
-            <td style="font-size:150%" ng-if="showRemainder">Total</td>
-            <td ng-if="!showRemainder">
+        <tr ng-if="showTotal && data.length">
+            <td>
+                <a href="" class="glyphicon-btn" style="font-size:30px; line-height:1;"
+                   ng-if="remainder || isExpanded" ng-click="toggleShowAll()">
+                    <span ng-if="remainder">&#9660;</span>
+                    <span ng-if="isExpanded">&#9650;</span>
+                </a>
+            </td>
+            <td>
                 <span style="font-size:150%">Total</span>
                 <small ng-if="remainder">(+ {{remainder}} more)</small>
             </td>
@@ -41,7 +40,6 @@
                 {{total}}
             </td>
         </tr>
-
     </table>
 
 </div>

@@ -38,8 +38,13 @@ body {
 }
 
 a.glyphicon-btn {
-	color: inherit;
-}
+	color: inherit;}
+	a.glyphicon-btn:focus {
+		text-decoration:none;
+	}
+	a.glyphicon-btn:hover {
+		text-decoration:underline;
+	}
 
 h1 a.glyphicon-btn, h2 a.glyphicon-btn, h3 a.glyphicon-btn, h4 a.glyphicon-btn, h5 a.glyphicon-btn {
     font-size:85%;
@@ -53,6 +58,7 @@ a.glyphicon-btn-unselected {
 .clickable:hover {
 	cursor:pointer;
 }
+
 
 /* Some defined colors for various EVE objects. Perhaps a tag other than 'label' would be better*/
 .bg-highsec {
