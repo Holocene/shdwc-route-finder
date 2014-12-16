@@ -1,0 +1,101 @@
+
+<div class="row">
+    <div class="col-sm-3">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                Add
+            </div>
+
+            <div class="panel-body">
+                <p></p>
+
+                <form role="form">
+                    <div class="form-group has-feedback">
+                        <label class="control-label">Query</label>
+                        <input class="form-control" ng-model="searchQuery" />
+                        <span class="glyphicon glyphicon-ok form-control-feedback"
+                              ng-show="searchResult"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-show="!searchResult && searchQuery && searchQuery.length > 0"></span>
+                        <p class="help-block">
+                            Enter the exact character, corporation or alliance name.
+                        </p>
+                    </div>
+                </form>
+
+                <div ng-show="searchResult">
+                    <div class="pull-left">
+                        <img src="{{searchResult.picUrl}}" style="width:128px; height:128px;" />
+                    </div>
+                    <div class="pull-left" style="margin-left:15px;">
+                        <div style="font-size:150%;">{{searchResult.name}}</div>
+                        <div style="font-size:125%;">{{searchResult.type}}</div>
+                        <button class="btn btn-primary"
+                                ng-click="add(searchResult)">Add</button>
+                    </div>  
+                </div>               
+
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                Notice
+            </div>
+
+            <div class="panel-body">
+                The login server may have other external access providers defined that extend
+                the local access control list. This means that more groups beyond the ones listed
+                here may be able to log in to the site.
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-9">
+        <div class="panel panel-default">
+            <table class="table table-striped">
+                <tr>
+                    <th style="width:1%;"></th>
+                    <th>Name
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('name')"></a></th>
+                    <th>Type
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('type')"></a></th>
+                    <th>Last Modified
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('lastModified')"></a></th>
+                    <th style="width:1%;"></th>
+                </tr>
+
+                <tr ng-repeat="item in items" class="vertical-middle">
+                    <td>
+                        <img src="{{item.picUrl}}" style="width:32px; height:32px;" />
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        {{item.type}}
+                    </td>
+                    <td>
+                        {{item.lastModifiedFuzzy}}
+                    </td>
+                    <td><a href="" ng-click="delete(item.data)">delete</a></td>
+                </tr>
+            </table>
+
+
+
+
+
+        </div>
+    </div>
+</div>

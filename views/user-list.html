@@ -13,8 +13,16 @@
                     <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
                        ng-click="sort('name')"></a>
                 </th>
-                <th>Corporation</th>
-                <th>Alliance</th>
+                <th>
+                    Corporation
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('corporation')"></a>
+                </th>
+                <th>
+                    Alliance
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('alliance')"></a>
+                </th>
                 <th>
                     Total Wormholes Added
                     <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
@@ -24,6 +32,11 @@
                     Last Contribution
                     <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
                        ng-click="sort('lastModified')"></a>
+                </th>
+                <th>
+                    Last Login
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('lastLogin')"></a>
                 </th>
             </tr>
         </thead>
@@ -35,8 +48,8 @@
                     {{user.name}}
                 </a>
             </td>
-            <td></td>
-            <td></td>
+            <td>{{user.corporation}}</td>
+            <td>{{user.alliance}}</td>
             <td>
                 <span ng-if="user.leaderboardTotals.wormholesAdded">
                     {{user.leaderboardTotals.wormholesAdded}}
@@ -46,8 +59,13 @@
                 <a class="abbr" ng-if="user.lastModified"
                    data-tooltip="{{user.lastModifiedPretty}}"
                    data-tooltip-placement="right">{{user.lastModifiedFuzzy}}</a>
-                <span></span>
             </td>
+            <td>
+                <a class="abbr" ng-if="user.lastLogin"
+                   data-tooltip="{{user.lastLoginPretty}}"
+                   data-tooltip-placement="right">{{user.lastLoginFuzzy}}</a>
+            </td>
+            
         </tr>
     </table>
 </div>
