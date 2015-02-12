@@ -1,0 +1,141 @@
+
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3 style ="margin:0;">Outstanding payments</h3>
+            </div>
+
+            <table class="table table-striped">
+                <tr>
+                    <th style="width:1%;"></th>
+                    <th>
+                        Name
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('name')"></a>
+                    </th>
+                    <th>
+                        Alliance
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('alliance')"></a>
+                        <!--<a href="" class="glyphicon glyphicon-filter" 
+                           data-toggle-list-popover="allAlliances"
+                           data-placement="right">
+                            filter
+                        </a>
+                        <span ng-show="hasAllianceFilters()">(filtering)</span>-->
+                    </th>
+                    <th>Total paid
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('totalPaid')"></a>
+                    </th>
+                    <th>
+                        <span class="abbr" data-tooltip="Discovered wormholes outstanding">
+                            Discovered
+                        </span>
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('added')"></a>
+                    </th>
+                    <th>
+                        <span class="abbr" data-tooltip="Complete wormholes oustanding">
+                            Complete
+                        </span>
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('completed')"></a>
+                    </th>
+                    <th>Amount outstanding
+                        <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                           ng-click="sort('amountDue')"></a>
+                    </th>
+                    <th style="width:1%;"></th>
+                </tr>
+
+                <tr ng-repeat="item in items" class="vertical-middle"
+                    ng-class="{'success':item.getReconciled()}">
+                    <td>
+                        <img src="{{item.picUrl}}" style="width:32px; height:32px;" />
+                    </td>
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        {{item.alliance}}
+                    </td>
+                    <td>
+                        {{item.getTotalPaidPretty()}}
+                    </td>
+                    <td>
+                        {{item.wormholesAdded}}
+                    </td>
+                    <td>
+                        {{item.wormholesCompleted}}
+                    </td>
+                    <td style="font-weight:bold; font-size:110%;">
+                        {{item.getAmountDuePretty()}}
+                    </td>
+                    <td>
+                        <a href="" style="font-weight:bold;" ng-click="item.toggleReconcile()"
+                           ng-if="item.getAmountDue()">
+                            <span ng-if="item.getReconciled()">Unreconcile</span>
+                            <span ng-if="!item.getReconciled()">Reconcile</span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-sm-3" ng-show="hasLoaded">
+        <div class="panel panel-info">
+
+            <div class="panel-heading">
+                Payout values
+            </div>
+
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>ISK per wormhole discovered</label>
+                        <input type="text" ng-model="wormholeValues.wormholesAdded"
+                               class="form-control" />
+                        <p class="help-block">{{wormholeValues.wormholesAddedPretty()}}</p>
+
+                    </div>
+                    <div class="form-group">
+                        <label>ISK per wormhole completed</label>
+                        <input type="text" ng-model="wormholeValues.wormholesCompleted"
+                               class="form-control" />
+                        <p class="help-block">{{wormholeValues.wormholesCompletedPretty()}}</p>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Reconcile
+            </div>
+
+            <div class="panel-body">
+
+                <form>
+                    <span id="helpBlock" class="help-block">
+                        Reconcile payments using the buttons on the left, then click
+                        'Save reconciliations' to update the database. All unpaid wormhole
+                        discoveries will be cleared, and the amounts paid to each scout recorded.
+                    </span>
+
+                    <button type="submit" class="btn btn-primary input-lg"
+                            style="font-size:large; font-weight:bold;"
+                            ng-click="saveReconciliations()"
+                            ng-disabled="!canSaveReconciliations()">
+                        Save reconciliations
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

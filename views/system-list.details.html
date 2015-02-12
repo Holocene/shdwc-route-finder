@@ -143,7 +143,8 @@
         </thead>
 
         <tr ng-repeat-start="dtls in wormholes" class="form-inline"
-            ng-if="!dtls.isEditing">
+            ng-if="!dtls.isEditing"
+            ng-class="{'danger': dtls.isDuplicate()}">
             <td ng-click="editWormhole(dtls)">
                 {{dtls.id}}
             </td>
