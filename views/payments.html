@@ -126,12 +126,18 @@
                         discoveries will be cleared, and the amounts paid to each scout recorded.
                     </span>
 
-                    <button type="submit" class="btn btn-primary input-lg"
-                            style="font-size:large; font-weight:bold;"
-                            ng-click="saveReconciliations()"
-                            ng-disabled="!canSaveReconciliations()">
-                        Save reconciliations
-                    </button>
+                    <div style="text-align:center;">
+                        <div style="font-size:larger; font-weight:bold" ng-if="canSaveReconciliations()">
+                            Total: {{getTotalReconciled()}}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary input-lg"
+                                style="font-size:large; font-weight:bold;"
+                                ng-click="saveReconciliations()"
+                                ng-disabled="!canSaveReconciliations()">
+                            Save reconciliations
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
