@@ -5,17 +5,45 @@
         <a href="" class="pull-right" ng-click="close()">Close</a>
     </div>
 
-    <table class="table table-striped table-condensed" style="table-layout:fixed;">
-        <tr ng-repeat="sys in systems">
-            <td style="width:70%;">
+    <table class="table table-striped table-condensed">
+
+        <tr>
+            <th>System</th>
+            <th>
+                <a href="" ng-click="toggleJumpMode()" class="abbr-link"
+                   data-tooltip="Click to toggle">
+                    <span ng-show="jumpsMode=='bridge'">Jumps to {{bridge.getHomeSystem().systemName}}</span>
+                    <span ng-show="jumpsMode=='home'">Jumps to {{homeSystem.systemName}}</span>
+                </a>
+            </th>
+            <th>
+                Distance
+            </th>
+            <th style="width:1%;"></th>
+        </tr>
+
+
+        <tr ng-repeat="sys in systems track by sys.data.id">
+            <td>
                 <a class="abbr-link" href=""
-                   data-system-details-tooltip="sys.sys"
+                   data-system-details-tooltip="sys.data"
                    data-tooltip-placement="right">
                     {{sys.name}}
                 </a>
             </td>
-            <td style="width:30%;">
+            <td>
+                <span ng-if="jumpsMode=='bridge'">{{sys.jumpsBridge}}</span>
+                <span ng-if="jumpsMode=='home'">{{sys.jumpsHome}}</span>
+            </td>
+            <td>
                 {{sys.dist}}
+            </td>
+            <td>
+                <a href="" ng-click="togglePinned(sys.data)"
+                   class="glyphicon glyphicon-pushpin glyphicon-btn"
+                   ng-class="{'glyphicon-btn-unselected': !sys.isPinned}"
+                   style="font-size:85%;">
+                </a>
             </td>
         </tr>
     </table>
