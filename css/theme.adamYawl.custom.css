@@ -1,0 +1,27 @@
+body {
+    background:url(../img/adam.jpg) repeat;
+    background-size:auto;
+    cursor:url("../img/adam-small.gif"),default;
+}
+
+.btn {
+    background:url(../img/adam.jpg) repeat;
+    background-size:contain;   
+    color:white;
+}
+
+img {
+    content:url(../img/adam.jpg);
+}
+
+[ui-sref^="user-details"] {
+    visibility:hidden;
+    position: relative;
+}
+[ui-sref^="user-details"]::after {
+    content:'Adam\00a0Yawl';
+    visibility:visible;
+    position:absolute;
+    top:0;
+    left:0;
+}
