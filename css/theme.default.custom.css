@@ -1,0 +1,14 @@
+
+/* Darken the default warning color for list group items*/
+.list-group-item-warning {
+    background-color:#FCF4C9;
+}
+a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+    background-color: #FAEDAF !important;
+}
+.list-group-item-highlighted {
+    background-color:#E8F2F7;
+}
+a.list-group-item-highlighted:hover, a.list-group-item-highlighted:focus {
+    background-color: #D3E8F3 !important;
+}

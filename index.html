@@ -13,29 +13,16 @@
 
     <!-- source-->
     <script src="config.js"></script>
-    <script src="js/bundle-lib.js?v=0.1.27"></script>
-    <script src="js/bundle.js?v=0.1.27"></script>
-
-    <!-- TODO -->
-    <!--<script src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-    <script src="lib/angular-strap.min.js"></script>
-    <script src="lib/moment.js"></script>
-    <script src="lib/queue.js"></script>
-    <script src="lib/store_json2.min.js"></script>-->
-
-    <!--Shims TODO --> 
-    <!--<script src="lib/shims/startswith.js"></script>
-    <script src="lib/shims/es6-shims.js"></script>-->
-
-    <!-- Our code TODO -->
-    <!--<script src="js/helpers.js"></script>
-    <script src="js/start.js"></script>-->
+    <script src="js/bundle-lib.js?v=0.1.29"></script>
+    <script src="js/bundle.js?v=0.1.29"></script>
 
     <!-- Styles-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link id="bootstrap-css" rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link id="theme-css" rel="stylesheet" href="/css/theme.light.css" />
 </head>
 <body ng-controller="GlobalController">
 
@@ -84,11 +71,36 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a data-ui-sref="user-details({user: user.name})">My Profile</a></li>
+
+                        <li class="dropdown-submenu go-left">
+                            <a tabindex="-1" href="#">
+                                <i class="fa fa-caret-left"></i>
+                                Themes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="" ng-click="setTheme('default')">
+                                        <strong>Default</strong>
+                                        <span class="glyphicon glyphicon-ok" ng-show="hasTheme('default')"></span>
+                                    </a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li ng-repeat="(key,val) in themes">
+                                    <a href="" ng-click="setTheme(key)">
+                                        {{val}}
+                                        <span class="glyphicon glyphicon-ok" ng-show="hasTheme(key)"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li role="presentation" class="divider"></li>
                         <li><a data-ui-sref="users">User List</a></li>
                         <li role="presentation" class="divider"></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
 						<li role="presentation" class="divider"></li>
-						<li class="disabled"><a>Version 0.1.27</a></li>
+						<li class="disabled"><a>Version 0.1.29</a></li>
                     </ul>
                 </li>
             </ul>
@@ -109,20 +121,6 @@
             Loading initial data...
         </div>
 
-    </div>
-
-    <div class="container-fluid ng-cloak" ng-if="siteConfig.testEnvironment">
-        <div class="alert alert-danger" role="alert" style="position:fixed; bottom:0; right:15px;">
-            <strong style="margin:0; font-size:24px; line-height:30px;">
-                In Development
-            </strong>
-            <div style="">
-                Report issues
-                <a href="http://pitch-black.org/forum/viewtopic.php?f=17&t=3053">on the forums</a>.
-                or
-                <a href="https://github.com/Holocene/shdwc-route-finder/issues">at the issue tracker</a>
-            </div>
-        </div>
     </div>
 </body>
 </html>

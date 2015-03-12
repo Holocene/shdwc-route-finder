@@ -63,15 +63,19 @@ a.glyphicon-btn-unselected {
 /* Some defined colors for various EVE objects. Perhaps a tag other than 'label' would be better*/
 .bg-highsec {
     background-color:#00be39;
+	color:white;
 }
 .bg-lowsec {
     background-color:#b95f00;
+	color:white;
 }
 .bg-nullsec {
     background-color:#be0000;
+	color:white;
 }
 .bg-wspace {
     background-color:#428bca;
+	color:white;
 }
 .fg-highsec {
     color:#00be39;
@@ -83,7 +87,7 @@ a.glyphicon-btn-unselected {
     color:#be0000;
 }
 .fg-wspace {
-    color:#428bca;
+	color: #428bca;
 }
 
 .help-block.has-success,
@@ -205,25 +209,6 @@ a.glyphicon-btn-unselected {
 
 /* Darken the default warning color for list group items*/
 
-/*a.list-group-item-danger, a.list-group-item-warning, a.list-group-item-success {
-    color:#555;
-}*/
-
-.list-group-item-warning {
-    background-color:#FCF4C9;
-}
-a.list-group-item-warning:hover, a.list-group-item-warning:focus {
-    background-color: #FAEDAF !important;
-}
-
-.list-group-item-highlighted {
-    background-color:#E8F2F7;
-}
-a.list-group-item-highlighted:hover, a.list-group-item-highlighted:focus {
-    background-color: #D3E8F3 !important;
-}
-
-
 .popover-toggle-list {
     padding:0;
 }
@@ -277,4 +262,37 @@ tr.vertical-middle > td {
 	font-size:120%;
 	line-height:1;
 
+}
+
+
+/* Submenus for dropdowns (for instance, on the top navigation bar) */
+.dropdown-submenu {
+    position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+.dropdown-submenu.go-left {
+    float: none;
+}
+.dropdown-submenu.go-left>.dropdown-menu {
+    right: 100%;
+	left:auto;
+	margin-left:auto;
+	margin-right:-1px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
 }
