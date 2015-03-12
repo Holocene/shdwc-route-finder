@@ -19,7 +19,7 @@ img {
     position: relative;
 }
 [ui-sref^="user-details"]::after {
-    content:'Adam\00a0Yawl';
+    content:'Adam\Yawl';
     visibility:visible;
     position:absolute;
     top:0;
