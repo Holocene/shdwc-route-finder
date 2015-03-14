@@ -1,7 +1,6 @@
 body {
     background:url(../img/adam.jpg) repeat;
     background-size:auto;
-    cursor:url("../img/adam-small.gif"),default;
 }
 
 .btn {
