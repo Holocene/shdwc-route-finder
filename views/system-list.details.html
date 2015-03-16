@@ -22,6 +22,11 @@
                     <small style="margin-left:10px;"> 
                         <a href="{{sys.dotlanLink}}"
                            title="system info at dotlan">dotlan</a>
+                        <span ng-if="sys.isWspace">
+                            -
+                            <a href="{{sys.wormhol_esLink}}"
+                               title="system info at wormhole.es">wormhole.es</a>
+                        </span>
                     </small>
                 </h3>
 
@@ -47,7 +52,7 @@
                         &nbsp;
                     </span>
                 </div>
-                <div>
+                <div ng-if="!sys.isWspace">
                     <b class="abbr" href="" data-tooltip="Static distance from {{sys.homeSystem}}">Distance:</b>
                     <span>
                         {{sys.distance}} jumps
