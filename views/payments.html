@@ -81,6 +81,17 @@
                         </a>
                     </td>
                 </tr>
+
+                <tr style="font-weight:bold;">
+                    <td></td>
+                    <td>Totals</td>
+                    <td></td>
+                    <td>{{totals.totalPaid}}</td>
+                    <td>{{totals.wormholesAdded}}</td>
+                    <td>{{totals.wormholesCompleted}}</td>
+                    <td>{{totals.amountDue}}</td>
+                </tr>
+
             </table>
         </div>
     </div>
@@ -139,6 +150,20 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Statistics
+            </div>
+            <div class="panel-body">
+                <dl style="margin:0;">
+                    <dt>Total paid out</dt>
+                    <dd>{{totals.totalPaid}}</dd>
+                    <dt>Total outstanding</dt>
+                    <dd>{{totals.amountDue}}</dd>
+                </dl>
             </div>
         </div>
 

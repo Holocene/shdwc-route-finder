@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Wormhole Mapper</title>
+
+    <!-- Styles-->
+    <link id="bootstrap-css" rel="stylesheet" 
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link id="theme-css" rel="stylesheet" href="css/theme.default.custom.css" />
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["orgchart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Name');
+            data.addColumn('string', 'Root');
+
+            data.addRows([
+              ['Dudreda', ''],
+              ['J001890', 'Dudreda'],
+              ['J215338', 'Dudreda'],
+              ['Basan', 'J215338'],
+              ['Sahda', 'J001890'],
+              ['I-1B7X', 'Basan']
+            ]);
+
+            var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+            chart.draw(data, { allowHtml: true });
+        }
+    </script>
+
+
+    <style>
+        .ng-hide {
+            display:none;
+        }
+    </style>
+
+</head>
+<body ng-controller="GlobalController" class="ng-scope">
+    <nav role="navigation" class="navbar navbar-default">
+        <div class="container-fluid">
+            <a data-ui-sref="index" class="navbar-brand" href="#/">Wormhole Mapper</a>
+            <ul class="nav navbar-nav">
+                <li ng-class="{active: is('system-list')}" class="active">
+                    <a data-ui-sref="system-list" href="#/system-list">Systems</a>
+                </li>
+                <li ng-class="{active: is('wormhole-list')}">
+                    <a data-ui-sref="wormhole-list" href="#/wormhole-list">Wormholes</a>
+                </li>
+                <li ng-class="{active: is('bridge-list')}">
+                    <a data-ui-sref="bridge-list" href="#/bridge-list">Bridges</a>
+                </li>
+                <li ng-class="{active: is('route-finder')}">
+                    <a data-ui-sref="route-finder" href="#/route-finder">Route Finder</a>
+                </li>
+                <!--<li ng-class="{active: is('distance-display')}">
+                    <a data-ui-sref="distance-display">Distance Display </a>
+                </li>-->
+            </ul>
+
+            <ul ng-if="user" class="nav navbar-nav navbar-right ng-scope">
+                <li ng-class="{active: is('leaderboard')}">
+                    <a data-ui-sref="leaderboard" href="#/leaderboard">Leaderboard</a>
+                </li>
+                <li data-dropdown="">
+                    <a data-dropdown-toggle="" href="" class="ng-binding" aria-haspopup="true" aria-expanded="false">
+                        Olixia Castitatis <span class="caret"></span>
+                    </a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a data-ui-sref="user-details({user: user.name})" href="#/users/Olixia%20Castitatis">My Profile</a></li>
+                        <li class="dropdown-submenu go-left">
+                            <a href="#" tabindex="-1">
+                                <i class="fa fa-caret-left"></i>
+                                Themes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a ng-click="setTheme('default')" href="">
+                                        <strong>Default</strong>
+                                        <span ng-show="hasTheme('default')" class="glyphicon glyphicon-ok"></span>
+                                    </a>
+                                </li>
+                                <li class="divider" role="presentation"></li>
+                                <!-- ngRepeat: (key,val) in themes -->
+                            </ul>
+                        </li>
+
+                        <li class="divider" role="presentation"></li>
+                        <li><a data-ui-sref="users" href="#/users">User List</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li><a ng-click="logout()" href="">Logout</a></li>
+                        <li class="divider" role="presentation"></li>
+                        <li class="disabled"><a>Version 0.1.38</a></li>
+                    </ul>
+                </li>
+            </ul><!-- end ngIf: user -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div role="main" class="container-fluid">
+        <div data-ui-view="" class="ng-scope">
+            <div class="row ng-scope">
+
+                <!-------
+                ---
+                --- Sidebar
+                ---      
+                ----------->
+                <div class="col-md-4">
+                    <div>
+                        <form role="form" class="ng-pristine ng-valid">
+                            <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                    <input placeholder="Find system..." class="form-control ng-isolate-scope ng-pristine ng-untouched ng-valid ng-scope" data-search-query="searchQuery" typeahead="system.systemName for system in search($viewValue,5)" ng-model="searchQuery" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-23-1818">
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearSearch()" type="button" class="btn btn-default">×</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel panel-default">
+                        <h3 class="panel-header">Pinned Systems</h3>
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-3">
+                                        Name
+                                        <a ng-click="sort('name')" class="glyphicon glyphicon-sort glyphicon-btn" href=""></a>
+                                    </th>
+                                    <th class="col-sm-3">
+                                        <a class="abbr-link" ng-click="toggleScanMode()" href="">
+                                            <span ng-show="scanMode=='full'">Last Scan</span>
+                                            <span ng-show="scanMode=='partial'" class="ng-hide">Last Partial</span>
+                                        </a>
+                                        <a ng-click="sort('lastScan')" class="glyphicon glyphicon-sort glyphicon-btn" href=""></a>
+                                    </th>
+                                    <!--<th>Last Partial Scan</th>-->
+                                    <th class="col-sm-3">
+                                        Wormholes
+                                        <a ng-click="sort('wormholes')" class="glyphicon glyphicon-sort glyphicon-btn" href=""></a>
+                                    </th>
+                                    <th class="col-sm-3">
+                                        <a class="abbr-link" ng-click="toggleDistanceMode()" href="">
+                                            <span data-tooltip="distance from Aeschee" ng-show="distanceMode=='distance'">
+                                                Distance
+                                            </span>
+                                            <span ng-show="distanceMode=='region'" class="ng-hide">Region</span>
+                                        </a>
+                                        <a ng-click="sort('distance')" class="glyphicon glyphicon-sort glyphicon-btn" href=""></a>
+                                    </th>
+                                    <!--<th>Signatures</th>-->
+                                    <th>
+                                        <a ng-click="sort('starred')" class="glyphicon glyphicon-sort glyphicon-btn" href=""></a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ngRepeat: sys in scannedSystems track by sys.id -->
+                                <tr ng-class="{'info': sys.isSelected(selectedSystem),
+                               'warning': sys.isMedium(scanMode) &amp;&amp; !sys.isSelected(selectedSystem),
+                               'danger': sys.isOld(scanMode) &amp;&amp; !sys.isSelected(selectedSystem)}" ng-click="go(sys.data)" ng-repeat="sys in scannedSystems track by sys.id" class="ng-scope danger">
+                                    <td>
+                                        <a data-system-details-tooltip="sys.data" data-tooltip-placement="right" class="abbr ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                            Agoze
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-tooltip="unrecorded" data-tooltip-placement="right" ng-show="scanMode=='full'" href="" class="abbr ng-binding">
+                                            -
+                                        </a>
+                                        <a data-tooltip="unrecorded" data-tooltip-placement="right" ng-show="scanMode=='partial'" href="" class="abbr ng-binding ng-hide">
+                                            -
+                                        </a>
+                                    </td>
+                                    <td class="ng-binding">0</td>
+                                    <td>
+                                        <span ng-show="distanceMode=='distance'" class="ng-binding">
+                                            8
+                                        </span>
+                                        <span ng-show="distanceMode=='region'" class="ng-binding ng-hide">
+                                            Placid
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pushpin ng-hide" ng-show="">
+                                        </span>
+                                        <span class="glyphicon glyphicon-star" ng-show="true">
+                                        </span>
+                                    </td>
+                                </tr><!-- end ngRepeat: sys in scannedSystems track by sys.id -->
+                                <tr ng-class="{'info': sys.isSelected(selectedSystem),
+                               'warning': sys.isMedium(scanMode) &amp;&amp; !sys.isSelected(selectedSystem),
+                               'danger': sys.isOld(scanMode) &amp;&amp; !sys.isSelected(selectedSystem)}" ng-click="go(sys.data)" ng-repeat="sys in scannedSystems track by sys.id" class="ng-scope">
+                                    <td>
+                                        <a data-system-details-tooltip="sys.data" data-tooltip-placement="right" class="abbr ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                            Rorsins
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-tooltip="Mon, Mar 16, 2015 12:36 PM" data-tooltip-placement="right" ng-show="scanMode=='full'" href="" class="abbr ng-binding">
+                                            1 hour ago
+                                        </a>
+                                        <a data-tooltip="Mon, Mar 16, 2015 12:36 PM" data-tooltip-placement="right" ng-show="scanMode=='partial'" href="" class="abbr ng-binding ng-hide">
+                                            1 hour ago
+                                        </a>
+                                    </td>
+                                    <td class="ng-binding">2</td>
+                                    <td>
+                                        <span ng-show="distanceMode=='distance'" class="ng-binding">
+                                            13
+                                        </span>
+                                        <span ng-show="distanceMode=='region'" class="ng-binding ng-hide">
+                                            Sinq Laison
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pushpin ng-hide" ng-show="">
+                                        </span>
+                                        <span class="glyphicon glyphicon-star" ng-show="true">
+                                        </span>
+                                    </td>
+                                </tr><!-- end ngRepeat: sys in scannedSystems track by sys.id -->
+                                <tr ng-class="{'info': sys.isSelected(selectedSystem),
+                               'warning': sys.isMedium(scanMode) &amp;&amp; !sys.isSelected(selectedSystem),
+                               'danger': sys.isOld(scanMode) &amp;&amp; !sys.isSelected(selectedSystem)}" ng-click="go(sys.data)" ng-repeat="sys in scannedSystems track by sys.id" class="ng-scope danger">
+                                    <td>
+                                        <a data-system-details-tooltip="sys.data" data-tooltip-placement="right" class="abbr ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                            Hegfunden
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-tooltip="Sat, Mar 14, 2015 2:19 AM" data-tooltip-placement="right" ng-show="scanMode=='full'" href="" class="abbr ng-binding">
+                                            2 days ago
+                                        </a>
+                                        <a data-tooltip="Sat, Mar 14, 2015 2:19 AM" data-tooltip-placement="right" ng-show="scanMode=='partial'" href="" class="abbr ng-binding ng-hide">
+                                            2 days ago
+                                        </a>
+                                    </td>
+                                    <td class="ng-binding">0</td>
+                                    <td>
+                                        <span ng-show="distanceMode=='distance'" class="ng-binding">
+                                            23
+                                        </span>
+                                        <span ng-show="distanceMode=='region'" class="ng-binding ng-hide">
+                                            Molden Heath
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pushpin" ng-show="true">
+                                        </span>
+                                        <span class="glyphicon glyphicon-star ng-hide" ng-show="">
+                                        </span>
+                                    </td>
+                                </tr><!-- end ngRepeat: sys in scannedSystems track by sys.id -->
+                                <tr ng-class="{'info': sys.isSelected(selectedSystem),
+                               'warning': sys.isMedium(scanMode) &amp;&amp; !sys.isSelected(selectedSystem),
+                               'danger': sys.isOld(scanMode) &amp;&amp; !sys.isSelected(selectedSystem)}" ng-click="go(sys.data)" ng-repeat="sys in scannedSystems track by sys.id" class="ng-scope danger">
+                                    <td>
+                                        <a data-system-details-tooltip="sys.data" data-tooltip-placement="right" class="abbr ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                            Siseide
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-tooltip="Sat, Mar 14, 2015 3:54 PM" data-tooltip-placement="right" ng-show="scanMode=='full'" href="" class="abbr ng-binding">
+                                            2 days ago
+                                        </a>
+                                        <a data-tooltip="Sat, Mar 14, 2015 3:54 PM" data-tooltip-placement="right" ng-show="scanMode=='partial'" href="" class="abbr ng-binding ng-hide">
+                                            2 days ago
+                                        </a>
+                                    </td>
+                                    <td class="ng-binding">0</td>
+                                    <td>
+                                        <span ng-show="distanceMode=='distance'" class="ng-binding">
+                                            11
+                                        </span>
+                                        <span ng-show="distanceMode=='region'" class="ng-binding ng-hide">
+                                            Heimatar
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pushpin" ng-show="true">
+                                        </span>
+                                        <span class="glyphicon glyphicon-star ng-hide" ng-show="">
+                                        </span>
+                                    </td>
+                                </tr><!-- end ngRepeat: sys in scannedSystems track by sys.id -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <!-------
+                ---
+                --- Main View
+                ---
+                ----------->
+                <div data-ui-view="" class="col-md-8 ng-scope">
+                    <div ng-show="show" data-modal-element="true" class="panel panel-default">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div style="margin-top:15px; margin-left:15px; margin-bottom:15px;">
+                                    <h3 style="margin:0;" class="ng-binding">
+                                        Dudreda
+                                        <a style="font-size:85%;" ng-class="{'glyphicon-btn-unselected': !sys.data.isPinned}" class="glyphicon glyphicon-pushpin glyphicon-btn" ng-click="togglePinned()" href="">
+                                        </a>
+                                        <a style="font-size:85%;" ng-class="{'glyphicon-btn-unselected': !sys.data.isStarred}" class="glyphicon glyphicon-star glyphicon-btn glyphicon-btn-unselected" ng-click="toggleStarred()" href="">
+                                        </a>
+                                        <small class="ng-binding">
+                                            Metropolis / 0.3
+                                        </small>
+                                        <small style="margin-left:10px;">
+                                            <a title="system info at dotlan" href="http://evemaps.dotlan.net/system/Dudreda">dotlan</a>
+                                        </small>
+                                    </h3>
+                                    <div>
+                                        <b>Last scanned: </b>
+                                        <a data-tooltip="Mon, Mar 16, 2015 12:45 PM" href="" class="abbr ng-binding">
+                                            1 hour ago
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <b>Last partial scan:</b>
+                                        <a data-tooltip="Mon, Mar 16, 2015 12:45 PM" href="" class="abbr ng-binding">
+                                            1 hour ago
+                                        </a>
+                                    </div>
+                                    <!-- ngIf: !sys.isWspace --><div ng-if="!sys.isWspace" class="ng-scope">
+                                        <b>Neighbours: </b>
+                                        <!-- ngRepeat: neighborSys in sys.connectedSystems --><span ng-repeat="neighborSys in sys.connectedSystems" class="ng-scope">
+                                            <a data-system-details-tooltip="neighborSys" ng-click="go(neighborSys); $event.stopPropagation()" class="abbr-link ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                                Hagilur
+                                            </a>
+                                            &nbsp;
+                                        </span><!-- end ngRepeat: neighborSys in sys.connectedSystems --><span ng-repeat="neighborSys in sys.connectedSystems" class="ng-scope">
+                                            <a data-system-details-tooltip="neighborSys" ng-click="go(neighborSys); $event.stopPropagation()" class="abbr-link ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                                Hakisalki
+                                            </a>
+                                            &nbsp;
+                                        </span><!-- end ngRepeat: neighborSys in sys.connectedSystems --><span ng-repeat="neighborSys in sys.connectedSystems" class="ng-scope">
+                                            <a data-system-details-tooltip="neighborSys" ng-click="go(neighborSys); $event.stopPropagation()" class="abbr-link ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                                Krirald
+                                            </a>
+                                            &nbsp;
+                                        </span><!-- end ngRepeat: neighborSys in sys.connectedSystems --><span ng-repeat="neighborSys in sys.connectedSystems" class="ng-scope">
+                                            <a data-system-details-tooltip="neighborSys" ng-click="go(neighborSys); $event.stopPropagation()" class="abbr-link ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                                Arifsdald
+                                            </a>
+                                            &nbsp;
+                                        </span><!-- end ngRepeat: neighborSys in sys.connectedSystems -->
+                                    </div><!-- end ngIf: !sys.isWspace -->
+                                    <div>
+                                        <b data-tooltip="Static distance from Aeschee" href="" class="abbr">Distance:</b>
+                                        <span class="ng-binding">
+                                            12 jumps
+                                        </span>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <div ng-show="!editingNote">
+                                            <!-- ngIf: sys.note -->
+                                            <!-- ngIf: !sys.note --><div ng-if="!sys.note" class="ng-scope">
+                                                <a ng-click="toggleEditNote()" href="">add note</a>
+                                            </div><!-- end ngIf: !sys.note -->
+                                            <span class="ng-binding"></span>
+                                        </div>
+                                        <div ng-show="editingNote" class="ng-hide">
+                                            <form class="ng-pristine ng-valid">
+                                                <div class="form-group has-feedback">
+                                                    <label>
+                                                        Note
+                                                        <a style="font-weight:normal" ng-click="toggleEditNote()" href="">
+                                                            cancel
+                                                        </a>
+                                                    </label>
+                                                    <textarea style="resize:vertical;" placeholder="Max 280 characters" ng-model="newNote" class="form-control ng-pristine ng-untouched ng-valid"></textarea>
+                                                    <span ng-class="{'has-success': isSafeNoteLength(),
+                                                 'has-error': !isSafeNoteLength()}" style="text-align:right;" class="help-block has-success">
+                                                        <span style="margin-right:10px;">
+                                                            <a ng-show="isSafeNoteLength()" ng-click="saveNote()" href="">save</a>
+                                                        </span>
+                                                        <span class="ng-binding">0</span>
+                                                        <span ng-show="isSafeNoteLength()" class="glyphicon glyphicon-ok"></span>
+                                                        <span ng-show="!isSafeNoteLength()" class="glyphicon glyphicon-remove ng-hide"></span>
+                                                    </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="btn-group-vertical btn-group-panel-options pull-right">
+                                    <div data-dropdown="" class="btn-group">
+                                        <button data-dropdown-toggle="" class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">
+                                            Actions
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                                            <li><a ng-click="markAsScanned()" href="">Mark as scanned</a></li>
+                                            <li><a ng-click="toggleEditNote()" href="">Edit system note</a></li>
+                                            <li><a ng-click="togglePasteSignatues()" href="">Paste scan results</a></li>
+                                        </ul>
+                                    </div>
+                                    <div ng-click="findRouteTo()" class="btn btn-default">
+                                        Find route
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-default">
+
+                        <div id="chart_div"></div>
+
+
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <h4>
+                            Wormholes
+                            <a ng-click="newWormhole();" class="glyphicon glyphicon-plus glyphicon-btn" href=""></a>
+                        </h4>
+                        <table class="table table-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="">ID</th>
+                                    <th class="">Destination</th>
+                                    <th class="">Class</th>
+                                    <th class="">Time found</th>
+                                    <th class="">Last Observed</th>
+                                    <th class="">Max lifetime</th>
+                                    <th>Length</th>
+                                    <th>Note</th>
+                                    <th></th>
+                                    <th class=""></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ngRepeat: dtls in wormholes --><!-- ngIf: !dtls.isEditing -->
+                                <tr ng-class="{'danger': dtls.isDuplicate()}" ng-if="!dtls.isEditing" class="form-inline ng-scope" ng-repeat-start="dtls in wormholes">
+                                    <td ng-click="editWormhole(dtls)" class="ng-binding">
+                                        WZQ-960
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <a data-system-details-tooltip="dtls.destination" data-tooltip-placement="right" ng-click="go(dtls.destination); $event.stopPropagation()" class="abbr-link ng-binding ng-isolate-scope" href="" data-original-title="" title="">
+                                            J001890
+                                        </a>
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <!-- ngIf: dtls.wormholeClass --><a data-tooltip-placement="right" data-wormhole-class-details-tooltip="dtls.wormholeClass" ng-if="dtls.wormholeClass" class="abbr ng-binding ng-scope ng-isolate-scope" data-original-title="" title="">
+                                            A239
+                                        </a><!-- end ngIf: dtls.wormholeClass -->
+                                        <!-- ngIf: !dtls.wormholeClass -->
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <a data-tooltip="Mon, Mar 16, 2015 12:45 PM" href="" class="abbr ng-binding">
+                                            1 hour ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <a data-tooltip="Mon, Mar 16, 2015 1:04 PM" href="" class="abbr ng-binding">
+                                            1 hour ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <a data-tooltip="Tue, Mar 17, 2015 12:45 PM" href="" class="abbr ng-binding">
+                                            1 day
+                                        </a>
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <a data-tooltip="no highsec: ∞" class="abbr ng-binding">
+                                            ∞
+                                        </a>
+                                    </td>
+                                    <td ng-click="editWormhole(dtls)">
+                                        <!-- ngIf: dtls.longNote -->
+                                        <!-- ngIf: !dtls.longNote --><span ng-if="!dtls.longNote" class="ng-binding ng-scope"></span><!-- end ngIf: !dtls.longNote -->
+                                    </td>
+                                    <td>
+                                        <span data-tooltip-placement="right" data-tooltip="Added by phantom ghost" class="glyphicon glyphicon-info-sign glyphicon-abbr" ng-show="dtls.user"></span>
+                                    </td>
+                                    <td class="td-btn">
+                                        <div data-dropdown="" style="float:right;" class="btn-group">
+                                            <button data-dropdown-toggle="" class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">
+                                                Actions
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                                                <li><a ng-click="editWormhole(dtls)" href="">Edit</a></li>
+                                                <li><a ng-click="observeWormhole(dtls.wormhole)" href="">Record observation</a></li>
+                                                <li class="divider"></li>
+                                                <li><a ng-click="deleteWormhole(dtls.wormhole)" href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr><!-- end ngIf: !dtls.isEditing -->
+                                <!-- ngIf: dtls.isEditing --><!-- end ngRepeat: dtls in wormholes -->
+                                <!-- ngIf: showNewWormhole -->
+                            </tbody>
+                        </table>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>
+                                    Signatures
+                                    <a ng-click="newSig()" class="glyphicon glyphicon-plus glyphicon-btn" href=""></a>
+                                    <small style="margin-left:20px">
+                                        <a ng-click="togglePasteSignatues()" href="">
+                                            <span ng-show="!pastingScanResults">Paste scan results</span>
+                                            <span ng-show="pastingScanResults" class="ng-hide">Hide</span>
+                                        </a>
+                                    </small>
+                                </h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <form ng-show="pastingScanResults" style="padding-right:15px;" role="form" class="ng-pristine ng-valid ng-hide">
+                                    <div style="margin-bottom:0;" class="form-group">
+                                        <textarea data-trigger-on-enter="pasteScanResults()" data-focus-on-condition="pastingScanResults" rows="1" ng-model="pastedScanResultData" placeholder="Paste scan results and press 'enter'" class="form-control ng-pristine ng-untouched ng-valid"></textarea>
+                                        <!--focus-on-condition="pastingScanResults"-->
+                                    </div>
+                                    <button ng-click="pasteScanResults()" class="pull-right btn btn-default" type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="table table-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-2">ID</th>
+                                    <th class="col-sm-2">Type</th>
+                                    <th class="col-sm-2">Time found</th>
+                                    <th class="col-sm-2">Last Scanned</th>
+                                    <th class="col-sm-2">Note</th>
+                                    <th class="col-sm-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ngRepeat: dtls in sigs --><!-- ngIf: !dtls.isEditing -->
+                                <tr ng-if="!dtls.isEditing" class="form-inline ng-scope" ng-repeat-start="dtls in sigs">
+                                    <td ng-click="editSig(dtls)" class="ng-binding">MZL-674</td>
+                                    <td ng-click="editSig(dtls)" class="ng-binding">wormhole</td>
+                                    <td ng-click="editSig(dtls)">
+                                        <a data-tooltip="Sun, Mar 15, 2015 12:29 PM" data-tooltip-placement="left" href="" class="abbr ng-binding">
+                                            1 day ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editSig(dtls)">
+                                        <a data-tooltip="Sun, Mar 15, 2015 12:32 PM" data-tooltip-placement="left" href="" class="abbr ng-binding">
+                                            1 day ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editSig(dtls)">
+                                        <!-- ngIf: dtls.longNote -->
+                                        <!-- ngIf: !dtls.longNote --><span ng-if="!dtls.longNote" class="ng-binding ng-scope">eol</span><!-- end ngIf: !dtls.longNote -->
+                                    </td>
+                                    <td class="td-btn">
+                                        <div data-dropdown="" style="float:right;" class="btn-group">
+                                            <button data-dropdown-toggle="" class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">
+                                                Actions
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                                                <li><a ng-click="editSig(dtls)" href="">Edit</a></li>
+                                                <li><a ng-click="observeSig(dtls.sig)" href="">Record scan</a></li>
+                                                <li class="divider"></li>
+                                                <li><a ng-click="deleteSig(dtls.sig)" href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr><!-- end ngIf: !dtls.isEditing -->
+                                <!-- ngIf: dtls.isEditing --><!-- end ngRepeat: dtls in sigs --><!-- ngIf: !dtls.isEditing -->
+                                <tr ng-if="!dtls.isEditing" class="form-inline ng-scope" ng-repeat-start="dtls in sigs">
+                                    <td ng-click="editSig(dtls)" class="ng-binding">NPU-974</td>
+                                    <td ng-click="editSig(dtls)" class="ng-binding">combat</td>
+                                    <td ng-click="editSig(dtls)">
+                                        <a data-tooltip="Sat, Mar 14, 2015 5:18 PM" data-tooltip-placement="left" href="" class="abbr ng-binding">
+                                            2 days ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editSig(dtls)">
+                                        <a data-tooltip="Sun, Mar 15, 2015 12:32 PM" data-tooltip-placement="left" href="" class="abbr ng-binding">
+                                            1 day ago
+                                        </a>
+                                    </td>
+                                    <td ng-click="editSig(dtls)">
+                                        <!-- ngIf: dtls.longNote --><span data-tooltip="Rogue Drone Asteroid Infestation" class="abbr ng-binding ng-scope" ng-if="dtls.longNote">
+                                            Rogue Drone Aste…
+                                        </span><!-- end ngIf: dtls.longNote -->
+                                        <!-- ngIf: !dtls.longNote -->
+                                    </td>
+                                    <td class="td-btn">
+                                        <div data-dropdown="" style="float:right;" class="btn-group">
+                                            <button data-dropdown-toggle="" class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">
+                                                Actions
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                                                <li><a ng-click="editSig(dtls)" href="">Edit</a></li>
+                                                <li><a ng-click="observeSig(dtls.sig)" href="">Record scan</a></li>
+                                                <li class="divider"></li>
+                                                <li><a ng-click="deleteSig(dtls.sig)" href="">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr><!-- end ngIf: !dtls.isEditing -->
+                                <!-- ngIf: dtls.isEditing --><!-- end ngRepeat: dtls in sigs -->
+                                <!-- ngIf: showNewSig -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
