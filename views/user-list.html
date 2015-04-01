@@ -24,9 +24,14 @@
                        ng-click="sort('alliance')"></a>
                 </th>
                 <th>
-                    Total Wormholes Added
+                    Wormholes Discovered
                     <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
                        ng-click="sort('wormholesAdded')"></a>
+                </th>
+                <th>
+                    Route Finder Queries
+                    <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
+                       ng-click="sort('routesSearched')"></a>
                 </th>
                 <th>
                     Last Contribution
@@ -34,9 +39,9 @@
                        ng-click="sort('lastModified')"></a>
                 </th>
                 <th>
-                    Last Login
+                    Last Activity
                     <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
-                       ng-click="sort('lastLogin')"></a>
+                       ng-click="sort('lastActivity')"></a>
                 </th>
             </tr>
         </thead>
@@ -51,8 +56,13 @@
             <td>{{user.corporation}}</td>
             <td>{{user.alliance}}</td>
             <td>
-                <span ng-if="user.leaderboardTotals.wormholesAdded">
-                    {{user.leaderboardTotals.wormholesAdded}}
+                <span ng-if="user.wormholesAdded">
+                    {{user.wormholesAdded}}
+                </span>
+            </td>
+            <td>
+                <span ng-if="user.routesSearched">
+                    {{user.routesSearched}}
                 </span>
             </td>
             <td>
@@ -61,9 +71,9 @@
                    data-tooltip-placement="right">{{user.lastModifiedFuzzy}}</a>
             </td>
             <td>
-                <a class="abbr" ng-if="user.lastLogin"
-                   data-tooltip="{{user.lastLoginPretty}}"
-                   data-tooltip-placement="right">{{user.lastLoginFuzzy}}</a>
+                <a class="abbr" ng-if="user.lastActivity"
+                   data-tooltip="{{user.lastActivityPretty}}"
+                   data-tooltip-placement="right">{{user.lastActivityFuzzy}}</a>
             </td>
             
         </tr>
