@@ -58,7 +58,7 @@
            ng-class="{'list-group-item-highlighted': partition.expanded,
                       'list-group-item-danger': partition.missingClass}">
             <div class="">
-                <span ng-if="partition.type === 'stargate'">
+                <span ng-if="partition.type === 'gate'">
                     <b>Stargate travel</b>: from
                 </span>
                 <span ng-if="partition.type === 'bridge'">
@@ -90,7 +90,7 @@
         </a>
         <div class="list-group-item list-group-item-child list-group-item-highlighted" 
              ng-show="partition.expanded" ng-repeat-end>
-            <table ng-if="partition.type === 'stargate'" class="table table-tiny">
+            <table ng-if="partition.type === 'gate'" class="table table-tiny">
                 <tr ng-repeat="node in partition.systems">
                     <td>
                         <span style="" class="glyphicon glyphicon-stop"

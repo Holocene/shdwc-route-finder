@@ -5,11 +5,25 @@
    ng-repeat-start="(key,value) in data"
    ng-click="toggle(key)"
    ng-class="{'list-group-item-success': getValue(key), 'list-group-item-danger': !getValue(key)}"
-   ng-if="!isNested(key)"
+   ng-if="!isNested(key) && !threeValue"
    >
     <span>{{getName(key)}}</span>
     <span class="glyphicon glyphicon-ok pull-right" ng-show="getValue(key)"></span>
     <span class="glyphicon glyphicon-remove pull-right" ng-show="!getValue(key)"></span>
+</a>
+
+<a href=""
+   class="list-group-item"
+   ng-click="toggle(key)"
+   ng-class="{
+        'list-group-item-success': getValue(key) === 0,
+        'list-group-item-warning': getValue(key) === 1,
+        'list-group-item-danger': getValue(key) === 2}"
+   ng-if="threeValue">
+    <span>{{getName(key)}}</span>
+    <span class="glyphicon glyphicon-ok pull-right" ng-show="getValue(key) === 0"></span>
+    <span class="glyphicon glyphicon-unchecked pull-right" ng-show="getValue(key) === 1"></span>
+    <span class="glyphicon glyphicon-remove pull-right" ng-show="getValue(key) === 2"></span>
 </a>
 
 <div class="list-group-item list-group-item-multi-container"
