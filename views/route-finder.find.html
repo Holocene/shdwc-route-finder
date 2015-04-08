@@ -164,13 +164,13 @@
                         </a>
                     </td>
                     <td>
-                        <a class="abbr" ng-if="wormhole.classTooltip"
-                           data-tooltip="{{wormhole.classTooltip}}"
+                        <a class="abbr-link" ng-if="wormhole.wormholeClass" href=""
+                           data-wormhole-class-details-tooltip="wormhole.wormholeClass"
                            data-tooltip-placement="right">
-                            {{wormhole.class}}
+                            {{wormhole.className}}
                         </a>
-                        <span ng-if="!wormhole.classTooltip">
-                            {{wormhole.class}}
+                        <span ng-if="!wormhole.wormholeClass">
+                            {{wormhole.className}}
                         </span>
                     </td>
                     <td>
