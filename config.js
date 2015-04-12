@@ -10,5 +10,7 @@
     redirectUri: 'http://holocene.github.io/shdwc-route-finder/#/login-return',
     clientId: 'c7341d6abe5a49fa8ebe0bd5d5d43c41',
 
+	loginContacts: "W0wbagger or Olixia Castitatis",
+	
     homeSystemId: 30005008 
 }

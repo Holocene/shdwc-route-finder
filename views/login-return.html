@@ -10,6 +10,8 @@
 
         <div ng-show="failed">
             <a data-ui-sref="login">Attempt another login?</a>
+
+            <p ng-if="loginContacts">(Contact {{loginContacts}} to arrange access)</p>
         </div>
 
         <div ng-show="!failed">
