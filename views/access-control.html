@@ -126,7 +126,7 @@
                               data-tooltip="{{item.longNote}}">
                             {{item.note}}
                         </span>
-                        <span ng-if="!wormhole.longNote">{{item.note}}</span>
+                        <span ng-if="!item.longNote">{{item.note}}</span>
                     </td>
                     <td>
                         <a href="" ng-click="delete(item.data); $event.stopPropagation();">
