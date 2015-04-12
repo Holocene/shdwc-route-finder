@@ -26,15 +26,44 @@
                 </form>
 
                 <div ng-show="searchResult">
-                    <div class="pull-left">
-                        <img src="{{searchResult.picUrl}}" style="width:128px; height:128px;" />
-                    </div>
-                    <div class="pull-left" style="margin-left:15px;">
+                    <div>
+                        <button class="btn btn-primary pull-right"
+                                ng-click="add(searchResult,searchAuth.note)">
+                            <span ng-if="!searchAuth.id">Add</span>
+                            <span ng-if="searchAuth.id">Edit</span>
+                        </button>
+                        <img class="pull-left"
+                             src="{{searchResult.picUrl}}" 
+                             style="width:128px; height:128px; margin-right:15px;" />
                         <div style="font-size:150%;">{{searchResult.name}}</div>
                         <div style="font-size:125%;">{{searchResult.type}}</div>
-                        <button class="btn btn-primary"
-                                ng-click="add(searchResult)">Add</button>
-                    </div>  
+                        <div>
+                            <small ng-if="searchResult.corp">{{searchResult.corp}}</small>
+                        </div>
+                        <div>
+                            <small ng-if="searchResult.alliance">{{searchResult.alliance}}</small>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group has-feedback">
+                            <textarea class="form-control"
+                                      ng-model="searchAuth.note"
+                                      placeholder="Note. Max 140 characters"
+                                      style="resize:vertical;"></textarea>
+                            <span class="help-block" style="text-align:right;"
+                                  ng-class="{'has-success': searchAuth.noteIsShort(),
+                                 'has-warning': searchAuth.noteIsMedium(),
+                                 'has-error': searchAuth.noteIsTooLong()}">
+                                <span>{{searchAuth.note ? searchAuth.note.length : 0}}</span>
+                                <span class="glyphicon glyphicon-ok"
+                                      ng-show="searchAuth.noteIsShort()"></span>
+                                <span class="glyphicon glyphicon-unchecked"
+                                      ng-show="searchAuth.noteIsMedium()"></span>
+                                <span class="glyphicon glyphicon-remove"
+                                      ng-show="searchAuth.noteIsTooLong()"></span>
+                            </span>
+                        </div>
+                    </div>
                 </div>               
 
             </div>
@@ -60,7 +89,7 @@
 
     <div class="col-sm-9">
         <div class="panel panel-default">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover table-hover-clicky">
                 <tr>
                     <th style="width:1%;"></th>
                     <th>Name
@@ -72,10 +101,12 @@
                     <th>Last Modified
                         <a href="" class="glyphicon glyphicon-sort glyphicon-btn"
                            ng-click="sort('lastModified')"></a></th>
+                    <th>Note</th>
                     <th style="width:1%;"></th>
                 </tr>
 
-                <tr ng-repeat="item in items" class="vertical-middle">
+                <tr ng-repeat="item in items" class="vertical-middle"
+                    ng-click="authSelect(item.name)">
                     <td>
                         <img src="{{item.picUrl}}" style="width:32px; height:32px;" />
                     </td>
@@ -88,7 +119,20 @@
                     <td>
                         {{item.lastModifiedFuzzy}}
                     </td>
-                    <td><a href="" ng-click="delete(item.data)">delete</a></td>
+                    <td>
+                        <span ng-if="item.longNote"
+                              class="abbr"
+                              data-tooltip-placement="right"
+                              data-tooltip="{{item.longNote}}">
+                            {{item.note}}
+                        </span>
+                        <span ng-if="!wormhole.longNote">{{item.note}}</span>
+                    </td>
+                    <td>
+                        <a href="" ng-click="delete(item.data); $event.stopPropagation();">
+                            delete
+                        </a>
+                    </td>
                 </tr>
             </table>
 
