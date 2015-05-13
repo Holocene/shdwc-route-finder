@@ -13,9 +13,6 @@
                         <option></option>
                     </select>
                 </div>
-            </div>
-
-            <div class="col-sm-4">
 
                 <div class="form-group has-feedback">
                     <label>Destination</label>
@@ -25,6 +22,9 @@
                     <span class="glyphicon glyphicon-ok form-control-feedback"
                           ng-show="destination"></span>
                 </div>
+            </div>
+
+            <div class="col-sm-4">
                 <div class="form-group has-feedback">
                     <label>Class</label>
                     <input data-wormhole-search="wormhole.wormholeClassName"
@@ -33,6 +33,17 @@
                            class="form-control" />
                     <span class="glyphicon glyphicon-ok form-control-feedback"
                           ng-show="wormhole.wormholeClassName"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <label>Lifetime</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-change="toggleEol()" ng-model="eolState">
+                            <span ng-show="!wormhole.isEol()">Not EOL</span>
+                            <span ng-show="wormhole.isEol()">EOL at 
+                                <strong>{{wormhole.getEolTimePretty()}}</strong></span>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">

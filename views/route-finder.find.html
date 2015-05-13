@@ -15,37 +15,37 @@
 
 <div ng-repeat="path in foundPaths" class="panel panel-default">
     <!-- The header entry-->
-    <div class="row">
-        <div class="col-sm-8">
-            <h4 style="margin:10px 10px 10px 10px">
-                <span style="margin-right:10px;"
-                      data-ng-pluralize data-count="path.jumps"
-                      data-when="{'one': '1 Jump', 'other': '{} Jumps'}">
-                </span>
-                <span class="label bg-highsec" ng-if="path.goesHighsec">Highsec</span>
-                <span class="label bg-lowsec" ng-if="path.goesLowsec">Lowsec</span>
-                <span class="label bg-nullsec" ng-if="path.goesNullsec">Nullsec</span>
-                <span class="label bg-wspace" ng-if="path.goesWspace">Wormhole space</span>
-
-                <span class="label label-default" ng-if="path.hasStargates">Stargates</span>
-                <span class="label label-default" ng-if="path.hasTitans">Titans</span>
-                <span class="label label-default" ng-if="path.hasBlackops">Blackops</span>
-                <span class="label label-default" ng-if="path.hasWormholes">Wormholes</span>
-                <span class="label label-danger" ng-if="path.getFatigue(shipClass) > 10">High fatigue</span>
-            </h4>
-        </div>
-        <div class="col-sm-4 row" style="text-align:right">
-            <div style="margin:10px 0 10px 10px;">
-                <span class="h4" ng-show="!path.hasWormholes">Static</span>
-                <a href="" ng-click="toggleShowTimeToExpire()" ng-show="path.hasWormholes"
-                   class="abbr-link"
-                   data-tooltip="{{getPathTimeTooltip(path)}}"
-                   data-tooltip-placement="right">
-                    <span class="h4" ng-show="!showTimeToExpire">{{path.getAgeFuzzy()}}</span>
-                    <span class="h4" ng-show="showTimeToExpire">{{path.getDateExpiresFuzzy()}}</span>
+    <div style="margin:10px 10px 10px 10px;">
+        <div class="pull-right" style="text-align:right;">
+            <span class="h4" ng-if="!path.hasWormholes">Static</span>
+            <span class="h4" ng-if="path.hasWormholes">
+                <a href="" class="abbr" data-tooltip="{{getPathTimeTooltip(path)}}"
+                    style="margin-right:20px;"
+                    data-tooltip-placement="right">
+                    <span class="h4">{{path.getAgeFuzzy()}} old</span>
                 </a>
-            </div>
+                <a href="" class="abbr" data-tooltip="{{getPathTimeTooltip(path)}}">
+                    <span class="h4">Expires in {{path.getDateExpiresFuzzy()}}</span>
+                </a>
+            </span>
         </div>
+
+        <h4 style="margin:0; display:inline-block;">
+            <span style="margin-right:10px;"
+                    data-ng-pluralize data-count="path.jumps"
+                    data-when="{'one': '1 Jump', 'other': '{} Jumps'}">
+            </span>
+            <span class="label bg-highsec" ng-if="path.goesHighsec">Highsec</span>
+            <span class="label bg-lowsec" ng-if="path.goesLowsec">Lowsec</span>
+            <span class="label bg-nullsec" ng-if="path.goesNullsec">Nullsec</span>
+            <span class="label bg-wspace" ng-if="path.goesWspace">Wormhole space</span>
+
+            <span class="label label-default" ng-if="path.hasStargates">Stargates</span>
+            <span class="label label-default" ng-if="path.hasTitans">Titans</span>
+            <span class="label label-default" ng-if="path.hasBlackops">Blackops</span>
+            <span class="label label-default" ng-if="path.hasWormholes">Wormholes</span>
+            <span class="label label-danger" ng-if="path.getFatigue(shipClass) > 10">High fatigue</span>
+        </h4>
     </div>
 
     <div style="padding-left:10px;">
