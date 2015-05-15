@@ -13,8 +13,8 @@
 
     <!-- source-->
     <script src="config.js"></script>
-    <script src="js/bundle-lib.js?v=0.1.61"></script>
-    <script src="js/bundle.js?v=0.1.61"></script>
+    <script src="js/bundle-lib.js?v=0.1.62"></script>
+    <script src="js/bundle.js?v=0.1.62"></script>
 
     <!-- Styles-->
     <link id="bootstrap-css" rel="stylesheet" 
@@ -25,7 +25,6 @@
     <link id="theme-css" rel="stylesheet" href="css/theme.default.custom.css" />
 </head>
 <body ng-controller="GlobalController">
-
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" data-ui-sref="index">Wormhole Mapper</a>
@@ -43,9 +42,9 @@
                 <li ng-class="{active: is('route-finder')}">
                     <a data-ui-sref="route-finder">Route Finder</a>
                 </li>
-                <!--<li ng-class="{active: is('distance-display')}">
-                    <a data-ui-sref="distance-display">Distance Display </a>
-                </li>-->
+                <li ng-class="{active: is('map')}">
+                    <a data-ui-sref="map">Map</a>
+                </li>
             </ul>
             
 
@@ -101,7 +100,7 @@
                         <li role="presentation" class="divider"></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
 						<li role="presentation" class="divider"></li>
-						<li class="disabled"><a>Version 0.1.61</a></li>
+						<li class="disabled"><a>Version 0.1.62</a></li>
                     </ul>
                 </li>
             </ul>

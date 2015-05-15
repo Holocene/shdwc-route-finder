@@ -39,7 +39,7 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" ng-change="toggleEol()" ng-model="eolState">
-                            <span ng-show="!wormhole.isEol()">Not EOL</span>
+                            <span ng-show="!wormhole.isEol()">EOL?</span>
                             <span ng-show="wormhole.isEol()">EOL at 
                                 <strong>{{wormhole.getEolTimePretty()}}</strong></span>
                         </label>

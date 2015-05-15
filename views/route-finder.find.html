@@ -19,13 +19,11 @@
         <div class="pull-right" style="text-align:right;">
             <span class="h4" ng-if="!path.hasWormholes">Static</span>
             <span class="h4" ng-if="path.hasWormholes">
-                <a href="" class="abbr" data-tooltip="{{getPathTimeTooltip(path)}}"
-                    style="margin-right:20px;"
-                    data-tooltip-placement="right">
-                    <span class="h4">{{path.getAgeFuzzy()}} old</span>
-                </a>
-                <a href="" class="abbr" data-tooltip="{{getPathTimeTooltip(path)}}">
-                    <span class="h4">Expires in {{path.getDateExpiresFuzzy()}}</span>
+                <a href="" class="abbr h4" data-tooltip="{{path.getAgePretty()}}"
+                    style="margin-right:20px;">
+                    {{path.getAgeFuzzy()}} old</a>
+                <a href="" class="abbr h4" data-tooltip="{{path.getDateExpiresPretty()}}">
+                    Expires in {{path.getDateExpiresFuzzy()}}
                 </a>
             </span>
         </div>
