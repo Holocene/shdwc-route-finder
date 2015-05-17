@@ -20,23 +20,46 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Map 2
-                <a href="" ng-click="hideInfo = !hideInfo">
+                <a href="" ng-click="hideInfo = !hideInfo" class="pull-right" style="font-weight:bold;">
                     <span ng-show="hideInfo">Show</span>
                     <span ng-show="!hideInfo">Hide</span>
                 </a>
             </div>
             <div class="panel-body" ng-show="!hideInfo">
                 <p>
-                    This will probably be removed at some point. It uses a different library to map 1
-                    that is much more interesting, but not very feature complete.
+                    <strong>Try clicking 'Start auto layout'</strong>. Try to make a good topological map of lowsec!
                 </p>
-                <p>Try to make a good topological map of lowsec!</p>
 
                 <p><strong>Click and drag</strong> a node to move it around and pin it.</p>
                 <p><strong>Shift + Click</strong> a node to make it bigger</p>
             </div>
         </div>
 
+        <div class="panel panel-default" ng-hide="!hasInitialized || hideInfo ">
+            <div class="list-group" style="font-weight:bold;">
+                <a href=""
+                   class="list-group-item list-group-item-info"
+                   ng-click="toggleAutolayout()">
+                    <span ng-hide="isAutolaying()">Begin auto layout</span>
+                    <span ng-hide="!isAutolaying()">End auto layout</span>
+                </a>
+                <a href=""
+                   class="list-group-item list-group-item-info"
+                   ng-click="savePositions()">
+                    Save Positions
+                </a>
+                <!--<a href=""
+                   class="list-group-item"
+                   ng-click="loadPositions()">
+                    Load Positions
+                </a>-->
+                <a href=""
+                   class="list-group-item list-group-item-info"
+                   ng-click="resetPositions()">
+                    Reset Positions
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
