@@ -13,8 +13,8 @@
 
     <!-- source-->
     <script src="config.js"></script>
-    <script src="js/bundle-lib.js?v=0.1.62"></script>
-    <script src="js/bundle.js?v=0.1.62"></script>
+    <script src="js/bundle-lib.js?v=0.1.63"></script>
+    <script src="js/bundle.js?v=0.1.63"></script>
 
     <!-- Styles-->
     <link id="bootstrap-css" rel="stylesheet" 
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link id="theme-css" rel="stylesheet" href="css/theme.default.custom.css" />
 </head>
-<body ng-controller="GlobalController">
+<body ng-controller="GlobalController" ng-class="bodyClass">
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" data-ui-sref="index">Wormhole Mapper</a>
@@ -45,8 +45,11 @@
                 <li ng-class="{active: is('map')}">
                     <a data-ui-sref="map">Map</a>
                 </li>
+                <li ng-class="{active: is('map2')}">
+                    <a data-ui-sref="map2">Map 2</a>
+                </li>
             </ul>
-            
+
 
             <ul class="nav navbar-nav navbar-right" ng-if="!user">
                 <li><a data-ui-sref="login">Login</a></li>
@@ -99,8 +102,8 @@
                         <li><a data-ui-sref="users">User List</a></li>
                         <li role="presentation" class="divider"></li>
                         <li><a href="" ng-click="logout()">Logout</a></li>
-						<li role="presentation" class="divider"></li>
-						<li class="disabled"><a>Version 0.1.62</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li class="disabled"><a>Version 0.1.63</a></li>
                     </ul>
                 </li>
             </ul>
@@ -108,14 +111,16 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container-fluid" role="main">
+    <div class="container-fluid" role="main" style="position:relative;">
 
         <div class="alert alert-danger" style="font-size:200%;" ng-if="siteConfig.testEnvironment">
             This is a test/development system. It may be unstable, and the database will ocassionally be wiped.
         </div>
 
-        <div ng-show="false">This site uses the latest javascript inovations, and is only tested
-        under Firefox and Chrome. You should also disable Noscript.</div>
+        <div ng-show="false">
+            This site uses the latest javascript inovations, and is only tested
+            under Firefox and Chrome. You should also disable Noscript.
+        </div>
 
         <div data-ui-view>
             Loading initial data...

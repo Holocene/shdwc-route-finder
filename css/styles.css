@@ -3,6 +3,10 @@ body {
     background:url(../img/class-5-to-highsec-wormhole.jpg) no-repeat center center fixed;
     background-size:cover;
 }
+body.hide-background-image {
+    background-image:none;
+    background-color:black;
+}
 
 .panel > h3.panel-header,
 .panel > h2.panel-header {

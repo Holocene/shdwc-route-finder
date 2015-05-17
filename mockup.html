@@ -16,58 +16,36 @@
     <script src="js/bundle-lib.js?v=$version"></script>
     <script src="js/bundle.js?v=$version"></script>
 
-    <!--<script src="js/sigma.min.js"></script>-->
+    <!--<script src="js/vivagraph.js"></script>-->
 
+    <!--<script src="js/sigma.min.js"></script>-->
     <!-- Styles-->
     <link id="bootstrap-css" rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <!--<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
+    <link rel="stylesheet" href="css/styles.css" />-->
     <link id="theme-css" rel="stylesheet" href="css/theme.default.custom.css" />
+
+
+    <style type="text/css" media="screen">
+        body, html, svg {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
 
 </head>
 <body ng-controller="GlobalController" class="ng-scope">
-    <div id="container" style="width:400px; height:400px; background:white;">
+    <div ng-controller="Map2Controller">
 
     </div>
 
-    <div sigma-js>
+    <div id="container" style="width:100%; height:100%; background:white;">
 
     </div>
 
-    <!--<script>
-        // Let's first initialize sigma:
-        var s = new sigma('container');
 
-        // Then, let's add some data to display:
-        s.graph.addNode({
-            // Main attributes:
-            id: 'n0',
-            label: 'Hello',
-            // Display attributes:
-            x: 0,
-            y: 0,
-            size: 1,
-            color: '#f00'
-        }).addNode({
-            // Main attributes:
-            id: 'n1',
-            label: 'World !',
-            // Display attributes:
-            x: 1,
-            y: 1,
-            size: 1,
-            color: '#00f'
-        }).addEdge({
-            id: 'e0',
-            // Reference extremities:
-            source: 'n0',
-            target: 'n1'
-        });
-
-        // Finally, let's ask our sigma instance to refresh:
-        s.refresh();
-    </script>-->
 </body>
 </html>
