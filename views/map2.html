@@ -39,6 +39,17 @@
             <div class="list-group" style="font-weight:bold;">
                 <a href=""
                    class="list-group-item list-group-item-info"
+                   ng-click="toggleWormholes()">
+                    <span ng-hide="hasWormholes()">Show Wormholes</span>
+                    <span ng-hide="!hasWormholes()">Hide Wormholes</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="panel panel-default" ng-hide="!hasInitialized || hideInfo ">
+            <div class="list-group" style="font-weight:bold;">
+                <a href=""
+                   class="list-group-item list-group-item-info"
                    ng-click="toggleAutolayout()">
                     <span ng-hide="isAutolaying()">Begin auto layout</span>
                     <span ng-hide="!isAutolaying()">End auto layout</span>
