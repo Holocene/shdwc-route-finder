@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="wormholeMapper">
+<head>
+    <meta charset="utf-8" />
+    <title>Wormhole Mapper</title>
+
+    <!--Libraries -->
+    <script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- source-->
+    <script src="config.js"></script>
+    <script src="js/bundle-lib.js?v=$version"></script>
+    <script src="js/bundle.js?v=$version"></script>
+
+    <!--<script src="js/vivagraph.js"></script>-->
+    <!--<script src="js/sigma.min.js"></script>-->
+    <!-- Styles-->
+    <link id="bootstrap-css" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.15.0.css" />
+    <link rel="stylesheet" href="css/styles.css" />-->
+    <link id="theme-css" rel="stylesheet" href="css/theme.default.custom.css" />
+
+
+    <style type="text/css" media="screen">
+        body, html, #container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body ng-controller="ScratchController" class="ng-scope">
+
+    <canvas id="container">
+
+    </canvas>
+
+</body>
+</html>
