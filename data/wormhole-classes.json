@@ -736,5 +736,14 @@
         "className": "M164", 
         "destinationType": "", 
         "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "F353", 
+        "destinationType": "", 
+        "maxStableTime": 16
     }
 ]
