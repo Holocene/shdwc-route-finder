@@ -1,6 +1,15 @@
 [
     {
         "massRegeneration": 0, 
+        "maxIndividualMass": 20000000, 
+        "totalMass": 500000000, 
+        "wormholeGrade": 0, 
+        "className": "A009", 
+        "destinationType": "Class 13 W-space (Shattered)", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
         "maxIndividualMass": 300000000, 
         "totalMass": 2000000000, 
         "wormholeGrade": 8, 
@@ -63,9 +72,18 @@
         "maxStableTime": 24
     }, 
     {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 750000000, 
+        "wormholeGrade": 0, 
+        "className": "B735", 
+        "destinationType": "Drifter Wormhole (Barbican)", 
+        "maxStableTime": 16
+    }, 
+    {
         "massRegeneration": "Regenerates over time", 
         "maxIndividualMass": 5000000, 
-        "totalMass": "Unknown", 
+        "totalMass": 300000000, 
         "wormholeGrade": 1, 
         "className": "C008", 
         "destinationType": "Class 5 W-Space", 
@@ -115,6 +133,15 @@
         "className": "C391", 
         "destinationType": "Lowsec", 
         "maxStableTime": 24
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 750000000, 
+        "wormholeGrade": 0, 
+        "className": "C414", 
+        "destinationType": "Drifter Wormhole (Conflux)", 
+        "maxStableTime": 16
     }, 
     {
         "massRegeneration": 0, 
@@ -178,6 +205,42 @@
         "className": "E545", 
         "destinationType": "Nullsec", 
         "maxStableTime": 24
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 1000000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "E587", 
+        "destinationType": "Nullsec", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "F135", 
+        "destinationType": "Thera", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "F353", 
+        "destinationType": "Thera", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 3000000000, 
+        "wormholeGrade": 0, 
+        "className": "G008", 
+        "destinationType": "Class 6 W-space", 
+        "maxStableTime": 16
     }, 
     {
         "massRegeneration": "Regenerates over time", 
@@ -271,6 +334,15 @@
     }, 
     {
         "massRegeneration": 0, 
+        "maxIndividualMass": 1000000000, 
+        "totalMass": 3000000000, 
+        "wormholeGrade": 0, 
+        "className": "L031", 
+        "destinationType": "Thera", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
         "maxIndividualMass": 300000000, 
         "totalMass": 2000000000, 
         "wormholeGrade": 3, 
@@ -288,12 +360,30 @@
         "maxStableTime": 24
     }, 
     {
+        "massRegeneration": 500000000, 
+        "maxIndividualMass": 20000000, 
+        "totalMass": 1000000000, 
+        "wormholeGrade": 0, 
+        "className": "M001", 
+        "destinationType": "Class 4 W-Space", 
+        "maxStableTime": 16
+    }, 
+    {
         "massRegeneration": "Regenerates over time", 
         "maxIndividualMass": 5000000, 
         "totalMass": "Unknown", 
         "wormholeGrade": 1, 
         "className": "M006", 
         "destinationType": "Class 4 W-Space", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "M164", 
+        "destinationType": "Thera", 
         "maxStableTime": 16
     }, 
     {
@@ -443,6 +533,15 @@
     {
         "massRegeneration": 0, 
         "maxIndividualMass": 20000000, 
+        "totalMass": 1000000000, 
+        "wormholeGrade": 0, 
+        "className": "Q063", 
+        "destinationType": "Highsec", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 20000000, 
         "totalMass": 500000000, 
         "wormholeGrade": 1, 
         "className": "Q317", 
@@ -456,6 +555,15 @@
         "wormholeGrade": 8, 
         "className": "R051", 
         "destinationType": "Lowsec", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 750000000, 
+        "wormholeGrade": 0, 
+        "className": "R259", 
+        "destinationType": "Drifter Wormhole (Redoubt)", 
         "maxStableTime": 16
     }, 
     {
@@ -506,10 +614,28 @@
     {
         "massRegeneration": 0, 
         "maxIndividualMass": 300000000, 
+        "totalMass": 750000000, 
+        "wormholeGrade": 0, 
+        "className": "S877", 
+        "destinationType": "Drifter Wormhole (Sentinel)", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
         "totalMass": 2000000000, 
         "wormholeGrade": 4, 
         "className": "T405", 
         "destinationType": "Class 4 W-Space", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 20000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "T458", 
+        "destinationType": "Thera", 
         "maxStableTime": 16
     }, 
     {
@@ -568,12 +694,30 @@
     }, 
     {
         "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 2000000000, 
+        "wormholeGrade": 0, 
+        "className": "V898", 
+        "destinationType": "Lowsec", 
+        "maxStableTime": 16
+    }, 
+    {
+        "massRegeneration": 0, 
         "maxIndividualMass": 1350000000, 
         "totalMass": 3000000000, 
         "wormholeGrade": 5, 
         "className": "V911", 
         "destinationType": "Class 5 W-Space", 
         "maxStableTime": 24
+    }, 
+    {
+        "massRegeneration": 0, 
+        "maxIndividualMass": 300000000, 
+        "totalMass": 750000000, 
+        "wormholeGrade": 0, 
+        "className": "V928", 
+        "destinationType": "Drifter Wormhole (Vidette)", 
+        "maxStableTime": 16
     }, 
     {
         "massRegeneration": 0, 
@@ -672,78 +816,6 @@
         "wormholeGrade": 1, 
         "className": "Z971", 
         "destinationType": "Class 1 W-Space", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 20000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "T458", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 300000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "F135", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 1000000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "E587", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 300000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "V898", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 1000000000, 
-        "totalMass": 3000000000, 
-        "wormholeGrade": 0, 
-        "className": "L031", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 20000000, 
-        "totalMass": 1000000000, 
-        "wormholeGrade": 0, 
-        "className": "Q063", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 300000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "M164", 
-        "destinationType": "", 
-        "maxStableTime": 16
-    }, 
-    {
-        "massRegeneration": 0, 
-        "maxIndividualMass": 300000000, 
-        "totalMass": 2000000000, 
-        "wormholeGrade": 0, 
-        "className": "F353", 
-        "destinationType": "", 
         "maxStableTime": 16
     }
 ]
