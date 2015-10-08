@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+
+    <h3 class="panel-header">
+        Login Logs
+    </h3>
+
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>Time</th>
+                <th>
+                    User
+                </th>
+                <th>
+                    Initial Character
+                </th>
+            </tr>
+        </thead>
+
+        <tr ng-repeat="item in items track by item.id">
+            <td>{{::item.datePretty}}</td>
+            <td>{{::item.timePretty}}</td>
+
+            <td>
+                <a href="" ui-sref="user-details({user: item.charName})">
+                    {{::item.charName}}
+                </a>
+            </td>
+            <td>
+                {{::item.initCharName}}
+            </td>
+        </tr>
+    </table>
+</div>
