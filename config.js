@@ -12,5 +12,5 @@
 
 	loginContacts: "W0wbagger or Olixia Castitatis",
 	
-    homeSystemId: 30003089 
+    homeSystemId: 30005008 
 }
