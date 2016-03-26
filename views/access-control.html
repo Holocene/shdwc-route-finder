@@ -81,6 +81,38 @@
                 here may be able to log in to the site.
             </div>
 
+        </div>
+
+        <div class="panel panel-warning">
+
+            <div class="panel-heading">
+                Change the Home System
+            </div>
+
+            <div class="panel-body">
+                <p>
+                    Current home system: <strong>{{currentHomeSystem}}</strong>
+                </p>
+
+                <div class="form-group has-feedback">
+                    <label class="control-label">New Home System</label>
+
+                    <div class="input-group">
+                        <input data-system-search="newHomeSystem"
+                               data-search-query="newHomeSystemQuery"
+                               class="form-control"
+                               placeholder="Find system..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"
+                                    ng-disabled="!canSaveHomeSystem()" ng-click="saveHomeSystem()">
+                                Save
+                            </button>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
